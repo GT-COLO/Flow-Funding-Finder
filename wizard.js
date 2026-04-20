@@ -813,14 +813,21 @@ function computeResults() {
   const tier2    = [];  // NDIS, My Aged Care, CAPS, MASS
   const tier3    = [];  // State top-up schemes
   let   stopHere = false;
-  // ── EARLY EXIT CHECK ─────────────────────────────────────────
-  // Condition A: no lifelong, no MVA, no work, no veteran, no disability
+   // ── EARLY EXIT CHECK ─────────────────────────────────────────
+  // Condition A: no lifelong, no MVA, no work, no veteran, no disability,
+  // AND not eligible for My Aged Care based on age
+  const notAgedCareAge =
+    age === 'under5' ||
+    age === '5to15'  ||
+    age === '16to49' ||
+    (age === '50to64' && atsi !== 'yes');
   const conditionA =
     lifelong   === 'no' &&
     mva        === 'no' &&
     work       === 'no' &&
     veteran    === 'no' &&
-    disability === 'no';
+    disability === 'no' &&
+    notAgedCareAge;
   // Condition B: neither citizen/NZ/PR, no Medicare, no MVA, no work, no veteran
   const conditionB =
     residency === 'neither' &&
@@ -931,8 +938,7 @@ function computeResults() {
   // If we reach here with nothing in tier1/tier2 and lifelong = 'no'
   if (
     tier1.length === 0 &&
-    tier2.length === 0 &&
-    lifelong === 'no'
+    tier2.length === 0
   ) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
