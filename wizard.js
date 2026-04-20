@@ -888,23 +888,21 @@ function computeResults() {
   }
   // ── TIER 2: NDIS ─────────────────────────────────────────────
   // Recommend NDIS if disability=yes, not formally deemed ineligible, and AU/NZ resident
-  if (
-    disability === 'yes'      &&
-    ndisIneligible !== 'yes'  &&
-    (isAuPR || isNZ) &&
-    age !== '65plus' 
-  ) {
-    if (isUnder9) {
-      tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
-    } else {
-      tier2.push(SCHEMES.NDIS);
-    }
-    // If a NIL scheme is in tier1, continue to also show NDIS — don't hard stop
-    // If NO NIL scheme either, return now
-    if (tier1.length === 0) {
-      return { noSchemes: false, tier1, tier2, tier3: [] }; // NDIS = hard stop, no Tier 3
-    }
-  }
+     if (
+     disability === 'yes'     &&
+     ndisIneligible !== 'yes' &&
+     (isAuPR || isNZ)         &&
+     age !== '65plus'
+   ) {
+     if (isUnder9) {
+       tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
+     } else {
+       tier2.push(SCHEMES.NDIS);
+     }
+     // Always return early — NDIS blocks all Tier 3
+     // regardless of whether a NIL scheme is in Tier 1
+     return { noSchemes: false, tier1, tier2, tier3: [] };
+   }
   // ── TIER 2: MY AGED CARE ─────────────────────────────────────
   let myAgedCareRecommended = false;
   if (agedCareAge && agedCareResidency) {
@@ -941,44 +939,54 @@ function computeResults() {
   }
  
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
-  // VIC — SWEP
-  if (
-    state === 'VIC' &&
-    isAuPR          &&
-    lifelong === 'yes' &&
-    !myAgedCareRecommended &&  
-    (disability === 'yes' || age === '65plus')
-  ) {
-    tier3.push(SCHEMES.SWEP);
-  }
-  // NSW — EnableNSW
-  if (
-    state === 'NSW'    &&
-    (isAuPR || isNZ || hasMedicare) &&
-    lifelong === 'yes'
-  ) {
-    tier3.push(SCHEMES.ENABLE_NSW);
-  }
-  // ACT — ACTES
-  if (
-    state === 'ACT' &&
-    isAuPR          &&
-    disability === 'yes' &&
-    (hasPCC || hasHCC)
-  ) {
-    tier3.push(SCHEMES.ACTES);
-  }
-   // WA — CPSS
+const capsRecommended = tier2.some(s => s.id === 'CAPS');
+   // VIC — SWEP
+   // Allowed alongside CAPS; blocked for My Aged Care
    if (
-     state === 'WA'     &&
-     isAuPR             &&
-     (age === '16to49' || age === '50to64' || age === '65plus') &&
-     lifelong === 'yes' &&
-     (hasPCC || hasHCC)
+     state === 'VIC'        &&
+     isAuPR                 &&
+     lifelong === 'yes'     &&
+     !myAgedCareRecommended &&   // ← My Aged Care blocks SWEP
+     (disability === 'yes' || age === '65plus')
+   ) {
+     tier3.push(SCHEMES.SWEP);
+   }
+   // NSW — EnableNSW
+   // Allowed alongside CAPS; blocked for My Aged Care
+   if (
+     state === 'NSW'                       &&
+     (isAuPR || isNZ || hasMedicare)       &&
+     lifelong === 'yes'                    &&
+     !myAgedCareRecommended                   // ← My Aged Care blocks EnableNSW
+   ) {
+     tier3.push(SCHEMES.ENABLE_NSW);
+   }
+   // ACT — ACTES
+   // Blocked for both CAPS and My Aged Care
+   if (
+     state === 'ACT'          &&
+     isAuPR                   &&
+     disability === 'yes'     &&
+     (hasPCC || hasHCC)       &&
+     !capsRecommended         &&   // ← CAPS blocks ACTES
+     !myAgedCareRecommended        // ← My Aged Care blocks ACTES
+   ) {
+     tier3.push(SCHEMES.ACTES);
+   }
+   // WA — CPSS
+   // Allowed alongside CAPS; blocked for My Aged Care
+   if (
+     state === 'WA'                                              &&
+     isAuPR                                                      &&
+     (age === '16to49' || age === '50to64' || age === '65plus')  &&
+     lifelong === 'yes'                                          &&
+     (hasPCC || hasHCC)                                          &&
+     !myAgedCareRecommended                                         // ← My Aged Care blocks CPSS
    ) {
      tier3.push(SCHEMES.CPSS);
    }
    // WA — CoSA (only if CPSS not eligible)
+   // Allowed alongside CAPS; blocked for My Aged Care
    if (
      state === 'WA'           &&
      isAuPR                   &&
@@ -986,19 +994,23 @@ function computeResults() {
      ndisIneligible === 'yes' &&
      lifelong === 'yes'       &&
      isCosaAge                &&
-     !(hasPCC || hasHCC)          // ← add this: only if CPSS not available
+     !(hasPCC || hasHCC)      &&
+     !myAgedCareRecommended        // ← My Aged Care blocks CoSA
    ) {
      tier3.push(SCHEMES.COSA);
    }
-  // NT — TEP
-  if (
-    state === 'NT' &&
-    isAuPR         &&
-    lifelong === 'yes' &&
-    (hasPCC || disability === 'yes')
-  ) {
-    tier3.push(SCHEMES.TEP);
-  }
+   // NT — TEP
+   // Allowed alongside CAPS and My Aged Care
+   if (
+     state === 'NT'     &&
+     isAuPR             &&
+     lifelong === 'yes' &&
+     (hasPCC || disability === 'yes')
+     // No Commonwealth scheme blocks TEP —
+     // it is explicitly allowed alongside both CAPS and My Aged Care
+   ) {
+     tier3.push(SCHEMES.TEP);
+   }
 
  // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
