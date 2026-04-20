@@ -96,7 +96,7 @@ const SCHEMES = {
     badge: 'MVA Scheme — ACT',
     body: [
       'A state-based motor vehicle accident scheme is not available in the ACT.',
-      'You may wish to explore non-government funding options or speak to your healthcare professional for further guidance.'
+      'You may wish to explore other funding options or speak to your healthcare professional for further guidance.'
     ],
     note: null,
     link: null
@@ -518,17 +518,17 @@ const QUESTIONS = [
     ],
     show: () => true
   },
-  {
-    id: 'Q12',
-    text: 'Are you currently a National Disability Insurance Scheme (NDIS) participant, or do you think you may be eligible?',
-    hint: '',
-    type: 'single',
-    options: [
-      { value: 'yes_maybe', label: 'Yes / Maybe' },
-      { value: 'no',        label: 'No' }
-    ],
-    show: (a) => a.Q11 === 'yes'
-  },
+   {
+     id: 'Q12',
+     text: 'Have you been formally assessed and deemed ineligible for the National Disability Insurance Scheme (NDIS)?',
+     hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
+     type: 'single',
+     options: [
+       { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
+       { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
+     ],
+     show: (a) => a.Q11 === 'yes'
+   },
   {
     id: 'Q13',
     text: 'Is your incontinence likely to be lifelong?',
@@ -554,7 +554,6 @@ const QUESTIONS = [
         value: 'non_neuro',
         label: 'Non-neurological condition (e.g. prostate problems, pelvic floor weakness, bladder overactivity)'
       },
-      { value: 'unsure', label: 'Unsure' }
     ],
     show: (a) => a.Q13 === 'yes'
   },
@@ -779,54 +778,47 @@ function restartWizard() {
 // ─── Output Logic ─────────────────────────────────────────────────────────────
 function computeResults() {
   const a = answers;
-  // Convenience aliases
   const age         = a.Q1;
-  const atsi        = a.Q2;          // 'yes'|'no'|undefined
-  const residency   = a.Q3;          // 'au_pr'|'nz'|'neither'
-  const medicare    = a.Q4;          // 'yes'|'no'|undefined
+  const atsi        = a.Q2;
+  const residency   = a.Q3;
+  const medicare    = a.Q4;
   const state       = a.Q5;
-  const veteran     = a.Q6;          // 'yes'|'no'
-  const dvaCard     = a.Q7;          // 'gold'|'white_inc'|'white_no_inc'|'neither'|undefined
-  const mva         = a.Q8;          // 'yes'|'no'
-  const work        = a.Q9;          // 'yes'|'no'
-  const govWorker   = a.Q10;         // 'yes'|'no'|undefined
-  const disability  = a.Q11;         // 'yes'|'no'
-  const ndis        = a.Q12;         // 'yes_maybe'|'no'|undefined
-  const lifelong    = a.Q13;         // 'yes'|'no'
-  const cause       = a.Q14;         // 'neuro'|'non_neuro'|'unsure'|undefined
-  const cards       = a.Q15 || [];   // array
+  const veteran     = a.Q6;
+  const dvaCard     = a.Q7;
+  const mva         = a.Q8;
+  const work        = a.Q9;
+  const govWorker   = a.Q10;
+  const disability  = a.Q11;
+  const ndisIneligible = a.Q12;   // 'yes' = formally deemed ineligible; 'no' = not assessed / participant
+  const lifelong    = a.Q13;
+  const cause       = a.Q14;
+  const cards       = a.Q15 || [];
   const isAuPR      = residency === 'au_pr';
   const isNZ        = residency === 'nz';
   const hasMedicare = medicare === 'yes';
-  // Age-related helpers
   const isUnder9 = age === 'under3' || age === '3to4' || age === '5to8';
   const isCosaAge =
-    age === '3to4' ||
-    age === '5to8' ||
+    age === '3to4'  ||
+    age === '5to8'  ||
     age === '9to15' ||
-    age === '16to49' ||
+    age === '16to49'||
     age === '50to64';
-  // Eligible for aged care pathway?
-  const agedCareAge = age === '65plus' || (age === '50to64' && atsi === 'yes');
+  const agedCareAge       = age === '65plus' || (age === '50to64' && atsi === 'yes');
   const agedCareResidency = isAuPR || isNZ || hasMedicare;
-  const hasPCC = cards.includes('pcc');
-  const hasHCC = cards.includes('hcc');
-  const hasQldSenior = cards.includes('qld_senior');
+  const hasPCC           = cards.includes('pcc');
+  const hasHCC           = cards.includes('hcc');
+  const hasQldSenior     = cards.includes('qld_senior');
   const hasAnyConcession = hasPCC || hasHCC || hasQldSenior;
-  // Result buckets
-  const tier1 = [];  // MVA / Work / DVA RAP — STOP schemes
-  const tier2 = [];  // NDIS, My Aged Care, CAPS, MASS
-  const tier3 = [];  // State top-up schemes
-  let stopHere = false;
-  // ── EARLY EXIT CHECK ─────────────────────────────────────────
-  // Condition A: no lifelong, no MVA, no work, no veteran, no disability,
-  // AND not eligible for My Aged Care based on age
+  const tier1 = [];
+  const tier2 = [];
+  const tier3 = [];
+  // ── EARLY EXIT CHECK ────────────────────────────────────────
   const notAgedCareAge =
     age === 'under3' ||
-    age === '3to4'    ||
-    age === '5to8'    ||
-    age === '9to15'   ||
-    age === '16to49'  ||
+    age === '3to4'   ||
+    age === '5to8'   ||
+    age === '9to15'  ||
+    age === '16to49' ||
     (age === '50to64' && atsi !== 'yes');
   const conditionA =
     lifelong   === 'no' &&
@@ -835,63 +827,70 @@ function computeResults() {
     veteran    === 'no' &&
     disability === 'no' &&
     notAgedCareAge;
-  // Condition B: neither citizen/NZ/PR, no Medicare, no MVA, no work, no veteran
   const conditionB =
     residency === 'neither' &&
-    medicare  === 'no' &&
-    mva       === 'no' &&
-    work      === 'no' &&
+    medicare  === 'no'      &&
+    mva       === 'no'      &&
+    work      === 'no'      &&
     veteran   === 'no';
   if (conditionA || conditionB) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
-  // ── TIER 1: MVA ───────────────────────────────────────────────
+  // ── TIER 1: MVA ─────────────────────────────────────────────
+  // Track whether a real (non-NIL) MVA scheme was found
+  let mvaHasScheme = false;
   if (mva === 'yes') {
     switch (state) {
-      case 'VIC': tier1.push(SCHEMES.TAC);         break;
-      case 'NSW': tier1.push(SCHEMES.ICARE_MVA);   break;
-      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA);   break;
-      case 'SA':  tier1.push(SCHEMES.LSA);         break;
-      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);    break;
-      case 'NT':  tier1.push(SCHEMES.MAC);         break;
-      case 'TAS': tier1.push(SCHEMES.MAIB);        break;
-      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL); break;
-      default:    break;
+      case 'VIC': tier1.push(SCHEMES.TAC);         mvaHasScheme = true; break;
+      case 'NSW': tier1.push(SCHEMES.ICARE_MVA);   mvaHasScheme = true; break;
+      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA);   mvaHasScheme = true; break;
+      case 'SA':  tier1.push(SCHEMES.LSA);         mvaHasScheme = true; break;
+      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);    mvaHasScheme = true; break;
+      case 'NT':  tier1.push(SCHEMES.MAC);         mvaHasScheme = true; break;
+      case 'TAS': tier1.push(SCHEMES.MAIB);        mvaHasScheme = true; break;
+      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL);                      break; // no scheme — fall through
+      default: break;
     }
-    stopHere = true;
+    // Only stop if a real scheme was found
+    if (mvaHasScheme) {
+      return { noSchemes: false, tier1, tier2: [], tier3: [] };
+    }
   }
-  // ── TIER 1: WORK ACCIDENT ─────────────────────────────────────
+  // ── TIER 1: WORK ACCIDENT ────────────────────────────────────
+  // Track whether a real (non-NIL) work scheme was found
+  let workHasScheme = false;
   if (work === 'yes') {
     if (govWorker === 'yes') {
       tier1.push(SCHEMES.COMCARE);
+      workHasScheme = true;
     } else {
       switch (state) {
-        case 'VIC': tier1.push(SCHEMES.WORKSAFE_VIC); break;
-        case 'NSW': tier1.push(SCHEMES.ICARE_WORK);   break;
-        case 'QLD': tier1.push(SCHEMES.WORKSAFE_QLD); break;
-        case 'WA':  tier1.push(SCHEMES.ICWA_WORK);    break;
-        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);  break;
-        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL); break;
-        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);  break;
-        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL); break;
-        default:    break;
+        case 'VIC': tier1.push(SCHEMES.WORKSAFE_VIC); workHasScheme = true; break;
+        case 'NSW': tier1.push(SCHEMES.ICARE_WORK);   workHasScheme = true; break;
+        case 'QLD': tier1.push(SCHEMES.WORKSAFE_QLD); workHasScheme = true; break;
+        case 'WA':  tier1.push(SCHEMES.ICWA_WORK);    workHasScheme = true; break;
+        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);                        break;
+        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL);                       break;
+        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);                        break;
+        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL);                       break;
+        default: break;
       }
     }
-    stopHere = true;
+    // Only stop if a real scheme was found
+    if (workHasScheme) {
+      return { noSchemes: false, tier1, tier2: [], tier3: [] };
+    }
   }
-  // If MVA or Work — STOP, return only tier1
-  if (stopHere) {
+  // ── TIER 1: DVA RAP ─────────────────────────────────────────
+  if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
+    tier1.push(SCHEMES.DVA_RAP);
     return { noSchemes: false, tier1, tier2: [], tier3: [] };
   }
-  // ── TIER 1: DVA RAP ──────────────────────────────────────────
-  if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
-     tier1.push(SCHEMES.DVA_RAP);
-     return { noSchemes: false, tier1, tier2: [], tier3: [] }; // ← stops everything
-   }
-  // ── TIER 2: NDIS ──────────────────────────────────────────────
+  // ── TIER 2: NDIS ─────────────────────────────────────────────
+  // Recommend NDIS if disability=yes, not formally deemed ineligible, and AU/NZ resident
   if (
-    disability === 'yes' &&
-    ndis === 'yes_maybe' &&
+    disability === 'yes'      &&
+    ndisIneligible !== 'yes'  &&
     (isAuPR || isNZ)
   ) {
     if (isUnder9) {
@@ -899,35 +898,42 @@ function computeResults() {
     } else {
       tier2.push(SCHEMES.NDIS);
     }
-    return { noSchemes: false, tier1, tier2, tier3: [] };
+    // If a NIL scheme is in tier1, continue to also show NDIS — don't hard stop
+    // If NO NIL scheme either, return now
+    if (tier1.length === 0) {
+      return { noSchemes: false, tier1, tier2, tier3: [] };
+    }
   }
-  // ── TIER 2: MY AGED CARE ──────────────────────────────────────
+  // ── TIER 2: MY AGED CARE ─────────────────────────────────────
   let myAgedCareRecommended = false;
   if (agedCareAge && agedCareResidency) {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
   }
-  // ── TIER 2: MASS (QLD only, if My Aged Care NOT recommended) ──
+  // ── TIER 2: MASS (QLD only) ───────────────────────────────────
   let massRecommended = false;
-  if (!myAgedCareRecommended && state === 'QLD' && isAuPR && lifelong === 'yes' && hasAnyConcession) {
-    tier2.push(SCHEMES.MASS);
-    massRecommended = true;
-  }
-  // ── TIER 2: CAPS ──────────────────────────────────────────────
-  // Only if: not My Aged Care, not QLD (MASS takes priority), AU citizen/PR,
-  // lifelong, age 5+, and correct cause/card combination
+  if (
+     !myAgedCareRecommended &&
+     state === 'QLD'        &&
+     isAuPR                 &&
+     lifelong === 'yes'     &&
+     hasAnyConcession
+    ) {
+     tier2.push(SCHEMES.MASS);
+     massRecommended = true;
+   }
+  // ── TIER 2: CAPS ─────────────────────────────────────────────
   if (
     !myAgedCareRecommended &&
-    !massRecommended &&
-    isAuPR &&
-    lifelong === 'yes' &&
-    age !== 'under3' &&
+    !massRecommended       &&
+    isAuPR                 &&
+    lifelong === 'yes'     &&
+    age !== 'under3'       &&
     age !== '3to4'
   ) {
     const capsQualifies =
       cause === 'neuro' ||
-      (cause === 'non_neuro' && hasPCC) ||
-      (cause === 'unsure' && hasPCC);
+      (cause === 'non_neuro' && hasPCC);
     if (capsQualifies) {
       tier2.push(SCHEMES.CAPS);
     }
@@ -940,7 +946,7 @@ function computeResults() {
   // VIC — SWEP
   if (
     state === 'VIC' &&
-    isAuPR &&
+    isAuPR          &&
     lifelong === 'yes' &&
     (disability === 'yes' || age === '65plus')
   ) {
@@ -948,7 +954,7 @@ function computeResults() {
   }
   // NSW — EnableNSW
   if (
-    state === 'NSW' &&
+    state === 'NSW'    &&
     (isAuPR || isNZ || hasMedicare) &&
     lifelong === 'yes'
   ) {
@@ -957,7 +963,7 @@ function computeResults() {
   // ACT — ACTES
   if (
     state === 'ACT' &&
-    isAuPR &&
+    isAuPR          &&
     disability === 'yes' &&
     (hasPCC || hasHCC)
   ) {
@@ -966,7 +972,7 @@ function computeResults() {
   // WA — CPSS
   if (
     state === 'WA' &&
-    isAuPR &&
+    isAuPR         &&
     (age === '16to49' || age === '50to64' || age === '65plus') &&
     lifelong === 'yes' &&
     (hasPCC || hasHCC)
@@ -975,27 +981,24 @@ function computeResults() {
   }
   // WA — CoSA
   if (
-     state === 'WA' &&
-     isAuPR &&
-     disability === 'yes' &&
-     ndis === 'no' &&
-     lifelong === 'yes' &&
-     isCosaAge
-   ) {
-     tier3.push(SCHEMES.COSA);
-   }
+    state === 'WA'       &&
+    isAuPR               &&
+    disability === 'yes' &&
+    ndisIneligible === 'yes' &&   // formally deemed ineligible for NDIS
+    lifelong === 'yes'   &&
+    isCosaAge
+  ) {
+    tier3.push(SCHEMES.COSA);
+  }
   // NT — TEP
   if (
     state === 'NT' &&
-    isAuPR &&
+    isAuPR         &&
     lifelong === 'yes' &&
     (hasPCC || disability === 'yes')
   ) {
     tier3.push(SCHEMES.TEP);
   }
-  // QLD — MASS already handled in Tier 2; no additional Tier 3 for QLD
-  // SA  — No Tier 3 scheme identified
-  // TAS — No Tier 3 scheme identified
   return { noSchemes: false, tier1, tier2, tier3 };
 }
 
