@@ -1001,12 +1001,22 @@ const capsRecommended = tier2.some(s => s.id === 'CAPS');
    }
    // NT — TEP
    // Allowed alongside CAPS and My Aged Care
+   // Under 16: lifelong incontinence sufficient
+   // 16+: must also hold PCC or have a permanent disability
    if (
      state === 'NT'     &&
      isAuPR             &&
      lifelong === 'yes' &&
-     (hasPCC || disability === 'yes')
-     // No Commonwealth scheme blocks TEP —
+     (
+       age === 'under3' ||
+       age === '3to4'   ||
+       age === '5to8'   ||
+       age === '9to15'  ||
+       (age === '16to49' && (hasPCC || disability === 'yes')) ||
+       (age === '50to64' && (hasPCC || disability === 'yes')) ||
+       (age === '65plus' && (hasPCC || disability === 'yes'))
+     )
+     // No Tier 2 Commonwealth scheme blocks TEP —
      // it is explicitly allowed alongside both CAPS and My Aged Care
    ) {
      tier3.push(SCHEMES.TEP);
