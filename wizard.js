@@ -735,16 +735,11 @@ function renderQuestion(qId) {
 function goNext() {
   const q = getQuestion(currentQId);
   if (!q) return;
-  // Validate
   if (q.type === 'single' && !answers[q.id]) return;
   if (q.type === 'multi'  && (!answers[q.id] || answers[q.id].length === 0)) return;
-  // Push current to history
   history.push(currentQId);
-  // Clear answers for questions that are now hidden due to new answer
-  // (handles branching — e.g. if user changes Q3 from 'neither' back to 'au_pr',
-  //  Q4 should be cleared)
-  invalidateStaleAnswers();
-  const nextId = getNextQuestionId(currentQId);
+  const nextId = getNextQuestionId(currentQId); // ← evaluate FIRST
+  invalidateStaleAnswers();                      // ← THEN clean up stale answers
   if (nextId) {
     renderQuestion(nextId);
     scrollToTop();
@@ -890,9 +885,14 @@ function computeResults() {
   }
   // ── TIER 1: DVA RAP ──────────────────────────────────────────
   if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
-    tier1.push(SCHEMES.DVA_RAP);
-    return { noSchemes: false, tier1, tier2: [], tier3: [] };
-  }
+     tier1.push(SCHEMES.DVA_RAP);
+     // Only stop here if the user is NOT eligible for aged care pathway.
+     // An elderly veteran may benefit from both DVA RAP and My Aged Care.
+     if (!agedCareAge || !agedCareResidency) {
+       return { noSchemes: false, tier1, tier2: [], tier3: [] };
+     }
+     // Otherwise fall through so My Aged Care is evaluated below.
+   }
   // ── TIER 2: NDIS ──────────────────────────────────────────────
   if (
     disability === 'yes' &&
@@ -924,7 +924,6 @@ function computeResults() {
   if (
     !myAgedCareRecommended &&
     !massRecommended &&
-    state !== 'QLD' &&
     isAuPR &&
     lifelong === 'yes' &&
     age !== 'under3' &&
@@ -986,8 +985,7 @@ function computeResults() {
      disability === 'yes' &&
      ndis === 'no' &&
      lifelong === 'yes' &&
-     age !== 'under3' &&
-     age !== '65plus'
+     isCosaAge
    ) {
      tier3.push(SCHEMES.COSA);
    }
