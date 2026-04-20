@@ -999,8 +999,6 @@ function computeResults() {
   ) {
     tier3.push(SCHEMES.TEP);
   }
-  return { noSchemes: false, tier1, tier2, tier3 };
-}
 
  // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
