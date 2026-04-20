@@ -938,10 +938,7 @@ function computeResults() {
       tier2.push(SCHEMES.CAPS);
     }
   }
-  // ── EARLY EXIT: No schemes at all ────────────────────────────
-  if (tier1.length === 0 && tier2.length === 0) {
-    return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
-  }
+ 
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
   // VIC — SWEP
   if (
@@ -998,6 +995,14 @@ function computeResults() {
     (hasPCC || disability === 'yes')
   ) {
     tier3.push(SCHEMES.TEP);
+  }
+  return { noSchemes: false, tier1, tier2, tier3 };
+}
+
+ // ── EARLY EXIT: No schemes at all ────────────────────────────
+  // Moved to AFTER Tier 3 evaluation
+  if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
+    return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
   return { noSchemes: false, tier1, tier2, tier3 };
 }
