@@ -920,14 +920,15 @@ function computeResults() {
   }
   // ── TIER 2: CAPS ──────────────────────────────────────────────
   // Only if: not My Aged Care, not QLD (MASS takes priority), AU citizen/PR,
-  // lifelong, age 3+, and correct cause/card combination
+  // lifelong, age 5+, and correct cause/card combination
   if (
     !myAgedCareRecommended &&
     !massRecommended &&
     state !== 'QLD' &&
     isAuPR &&
     lifelong === 'yes' &&
-    age !== 'under3'
+    age !== 'under3' &&
+    age !== '3to4'
   ) {
     const capsQualifies =
       cause === 'neuro' ||
@@ -980,15 +981,16 @@ function computeResults() {
   }
   // WA — CoSA
   if (
-    state === 'WA' &&
-    isAuPR &&
-    disability === 'yes' &&
-    ndis === 'no' &&
-    lifelong === 'yes' &&
-    isCosaAge
-  ) {
-    tier3.push(SCHEMES.COSA);
-  }
+     state === 'WA' &&
+     isAuPR &&
+     disability === 'yes' &&
+     ndis === 'no' &&
+     lifelong === 'yes' &&
+     age !== 'under3' &&
+     age !== '65plus'
+   ) {
+     tier3.push(SCHEMES.COSA);
+   }
   // NT — TEP
   if (
     state === 'NT' &&
