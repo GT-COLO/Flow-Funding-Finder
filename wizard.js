@@ -886,12 +886,7 @@ function computeResults() {
   // ── TIER 1: DVA RAP ──────────────────────────────────────────
   if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
      tier1.push(SCHEMES.DVA_RAP);
-     // Only stop here if the user is NOT eligible for aged care pathway.
-     // An elderly veteran may benefit from both DVA RAP and My Aged Care.
-     if (!agedCareAge || !agedCareResidency) {
-       return { noSchemes: false, tier1, tier2: [], tier3: [] };
-     }
-     // Otherwise fall through so My Aged Care is evaluated below.
+     return { noSchemes: false, tier1, tier2: [], tier3: [] }; // ← stops everything
    }
   // ── TIER 2: NDIS ──────────────────────────────────────────────
   if (
