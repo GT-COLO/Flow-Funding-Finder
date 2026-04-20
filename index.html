@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Continence Funding Wizard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wizard-wrapper">
+    <!-- Header -->
+    <header class="wizard-header">
+      <div class="header-inner">
+        <div class="header-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Continence Funding Wizard</span>
+        </div>
+        <p class="header-subtitle">
+          Find continence funding schemes you may be eligible for in Australia
+        </p>
+      </div>
+    </header>
+    <!-- Disclaimer Banner -->
+    <div class="disclaimer-banner" id="disclaimerBanner">
+      <div class="disclaimer-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="disclaimer-icon" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="disclaimer-text">
+          <strong>Disclaimer:</strong> This tool provides general information only and does not
+          constitute medical or legal advice. Eligibility for funding schemes may depend on
+          additional factors not captured here. Always confirm your eligibility directly with the
+          relevant scheme or a qualified healthcare professional.
+        </div>
+        <button class="disclaimer-close" id="disclaimerClose" aria-label="Close disclaimer">
+          &#x2715;
+        </button>
+      </div>
+    </div>
+    <!-- Main content -->
+    <main class="wizard-main">
+      <!-- Progress bar -->
+      <div class="progress-container" id="progressContainer" aria-hidden="true">
+        <div class="progress-header">
+          <span class="progress-label" id="progressLabel">Question 1</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+      </div>
+      <!-- Question card -->
+      <div class="card" id="questionCard">
+        <div class="card-body">
+          <!-- Question text -->
+          <div class="question-block" id="questionBlock">
+            <span class="question-number" id="questionNumber">Q1</span>
+            <h2 class="question-text" id="questionText"></h2>
+            <p class="question-hint" id="questionHint"></p>
+          </div>
+          <!-- Answer options (injected by JS) -->
+          <div class="options-container" id="optionsContainer"></div>
+          <!-- Navigation -->
+          <div class="nav-buttons">
+            <button class="btn btn-secondary" id="backBtn" onclick="goBack()">
+              &#8592; Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="goNext()" disabled>
+              Next &#8594;
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Results card (hidden initially) -->
+      <div class="card results-card" id="resultsCard" style="display:none;">
+        <div class="card-body">
+          <div class="results-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="results-icon" aria-hidden="true">
+              <polyline points="9 11 12 14 22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            <h2 class="results-title" id="resultsTitle">Your Results</h2>
+          </div>
+          <p class="results-intro" id="resultsIntro"></p>
+          <div id="resultsContent"></div>
+          <div class="results-footer">
+            <p class="results-disclaimer">
+              These results are based on the information you provided. Eligibility criteria may
+              change. Please confirm with the relevant scheme or your healthcare professional.
+            </p>
+            <button class="btn btn-primary" onclick="restartWizard()">
+              &#8635; Start Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="wizard-footer">
+      <p>
+        This wizard was developed to assist consumers and clinicians in identifying potential
+        continence funding options in Australia. It does not replace professional advice.
+      </p>
+    </footer>
+  </div>
+  <script src="wizard.js"></script>
+</body>
+</html>
