@@ -678,38 +678,35 @@ function renderQuestion(qId) {
         <span class="option-label">${opt.label}</span>
       `;
       btn.addEventListener('click', () => {
-        const isNone    = opt.value === 'none';
-        const arr       = answers[q.id];
+        const isNone      = opt.value === 'none';
+        const arr         = answers[q.id];
         const btnSelected = btn.classList.contains('selected');
         if (isNone) {
           // Selecting "None" clears all others
           container.querySelectorAll('.option-checkbox-btn').forEach(b => {
             b.classList.remove('selected');
           });
-          answers[q.id] = [];
           if (!btnSelected) {
             btn.classList.add('selected');
             answers[q.id] = ['none'];
+          } else {
+            // Clicking "None" again deselects it
+            answers[q.id] = [];
           }
         } else {
-          // Deselect "none" if another option is picked
-          container.querySelectorAll('.option-checkbox-btn').forEach(b => {
-            const label = b.querySelector('.option-label');
-            if (label && b !== btn) {
-              // find matching opt value
-              const matchOpt = opts.find(o => o.label === label.textContent);
-              if (matchOpt && matchOpt.value === 'none') {
-                b.classList.remove('selected');
-                answers[q.id] = answers[q.id].filter(v => v !== 'none');
-              }
-            }
+          // Deselect "None" option if it was selected — match by data attribute, not label text
+          container.querySelectorAll('.option-checkbox-btn[data-value="none"]').forEach(b => {
+            b.classList.remove('selected');
           });
+          answers[q.id] = arr.filter(v => v !== 'none');
           if (btnSelected) {
             btn.classList.remove('selected');
-            answers[q.id] = arr.filter(v => v !== opt.value);
+            answers[q.id] = answers[q.id].filter(v => v !== opt.value);
           } else {
             btn.classList.add('selected');
-            if (!arr.includes(opt.value)) arr.push(opt.value);
+            if (!answers[q.id].includes(opt.value)) {
+              answers[q.id].push(opt.value);
+            }
           }
         }
         // Enable Next if at least one option selected
