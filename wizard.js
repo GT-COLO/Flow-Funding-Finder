@@ -669,6 +669,7 @@ function renderQuestion(qId) {
       const btn = document.createElement('button');
       btn.className = 'option-checkbox-btn';
       btn.type      = 'button';
+      btn.dataset.value = opt.value;  
       const alreadySelected = answers[q.id].includes(opt.value);
       if (alreadySelected) btn.classList.add('selected');
       btn.innerHTML = `
