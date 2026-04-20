@@ -245,7 +245,7 @@ const SCHEMES = {
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
-      'The NDIS Early Childhood Approach supports children younger than 9 with developmental concerns or disability.',
+      'The NDIS Early Childhood Approach supports children younger than 9 with developmental delay or disability.',
       'As your child is under 9, please enquire about the NDIS Early Childhood Approach, which provides early intervention supports before a formal NDIS plan may be needed.',
       'Contact the NDIS or an Early Childhood Partner in your area for more information.'
     ],
