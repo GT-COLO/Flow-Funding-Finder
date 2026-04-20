@@ -891,7 +891,8 @@ function computeResults() {
   if (
     disability === 'yes'      &&
     ndisIneligible !== 'yes'  &&
-    (isAuPR || isNZ)
+    (isAuPR || isNZ) &&
+    age !== '65plus' 
   ) {
     if (isUnder9) {
       tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
@@ -901,7 +902,7 @@ function computeResults() {
     // If a NIL scheme is in tier1, continue to also show NDIS — don't hard stop
     // If NO NIL scheme either, return now
     if (tier1.length === 0) {
-      return { noSchemes: false, tier1, tier2, tier3: [] };
+      return { noSchemes: false, tier1, tier2, tier3: [] }; // NDIS = hard stop, no Tier 3
     }
   }
   // ── TIER 2: MY AGED CARE ─────────────────────────────────────
@@ -945,6 +946,7 @@ function computeResults() {
     state === 'VIC' &&
     isAuPR          &&
     lifelong === 'yes' &&
+    !myAgedCareRecommended &&  
     (disability === 'yes' || age === '65plus')
   ) {
     tier3.push(SCHEMES.SWEP);
@@ -966,27 +968,28 @@ function computeResults() {
   ) {
     tier3.push(SCHEMES.ACTES);
   }
-  // WA — CPSS
-  if (
-    state === 'WA' &&
-    isAuPR         &&
-    (age === '16to49' || age === '50to64' || age === '65plus') &&
-    lifelong === 'yes' &&
-    (hasPCC || hasHCC)
-  ) {
-    tier3.push(SCHEMES.CPSS);
-  }
-  // WA — CoSA
-  if (
-    state === 'WA'       &&
-    isAuPR               &&
-    disability === 'yes' &&
-    ndisIneligible === 'yes' &&   // formally deemed ineligible for NDIS
-    lifelong === 'yes'   &&
-    isCosaAge
-  ) {
-    tier3.push(SCHEMES.COSA);
-  }
+   // WA — CPSS
+   if (
+     state === 'WA'     &&
+     isAuPR             &&
+     (age === '16to49' || age === '50to64' || age === '65plus') &&
+     lifelong === 'yes' &&
+     (hasPCC || hasHCC)
+   ) {
+     tier3.push(SCHEMES.CPSS);
+   }
+   // WA — CoSA (only if CPSS not eligible)
+   if (
+     state === 'WA'           &&
+     isAuPR                   &&
+     disability === 'yes'     &&
+     ndisIneligible === 'yes' &&
+     lifelong === 'yes'       &&
+     isCosaAge                &&
+     !(hasPCC || hasHCC)          // ← add this: only if CPSS not available
+   ) {
+     tier3.push(SCHEMES.COSA);
+   }
   // NT — TEP
   if (
     state === 'NT' &&
@@ -1000,7 +1003,6 @@ function computeResults() {
 }
 
  // ── EARLY EXIT: No schemes at all ────────────────────────────
-  // Moved to AFTER Tier 3 evaluation
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
