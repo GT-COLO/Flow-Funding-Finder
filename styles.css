@@ -1,5 +1,7 @@
 /* ============================================================
    CONTINENCE FUNDING WIZARD — STYLESHEET
+   Styled to align with Coloplast brand guidelines
+   Primary blue: #004F9F | Green: #00A870 | Grey: #6B7280
    ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -12,8 +14,8 @@ html {
 }
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
-  background-color: hotpink;
-  color: #1a2332;
+  background-color: #F4F6F8;
+  color: #1A1A2E;
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -32,10 +34,10 @@ body {
 }
 /* ── Header ── */
 .wizard-header {
-  background: linear-gradient(135deg, #1a6faf 0%, #145a8e 100%);
+  background: #004F9F;
   color: #ffffff;
-  padding: 1.75rem 1.25rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 .header-inner {
   max-width: 720px;
@@ -48,21 +50,23 @@ body {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
+  color: #ffffff;
 }
 .header-logo svg {
   width: 28px;
   height: 28px;
   flex-shrink: 0;
+  color: #ffffff;
 }
 .header-subtitle {
   font-size: 0.93rem;
-  opacity: 0.88;
+  color: rgba(255,255,255,0.80);
   margin-left: 2px;
 }
 /* ── Disclaimer ── */
 .disclaimer-banner {
-  background-color: #fff8e6;
-  border-bottom: 2px solid #f5c518;
+  background-color: #FFF8E6;
+  border-bottom: 2px solid #F5C518;
 }
 .disclaimer-inner {
   max-width: 720px;
@@ -76,23 +80,23 @@ body {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: #c87f00;
+  color: #C87F00;
   margin-top: 2px;
 }
 .disclaimer-text {
   font-size: 0.85rem;
-  color: #6b4c00;
+  color: #6B4C00;
   flex: 1;
   line-height: 1.55;
 }
 .disclaimer-text strong {
-  color: #4a3400;
+  color: #4A3400;
 }
 .disclaimer-close {
   background: none;
   border: none;
   cursor: pointer;
-  color: #6b4c00;
+  color: #6B4C00;
   font-size: 1.1rem;
   padding: 0 0.25rem;
   flex-shrink: 0;
@@ -116,24 +120,24 @@ body {
 .progress-label {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #5a6a7e;
+  color: #6B7280;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 .progress-pct {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #1a6faf;
+  color: #004F9F;
 }
 .progress-track {
-  height: 8px;
-  background-color: #d1dce8;
+  height: 6px;
+  background-color: #E5E7EB;
   border-radius: 99px;
   overflow: hidden;
 }
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #1a6faf, #2eab6e);
+  background: linear-gradient(90deg, #004F9F, #00A870);
   border-radius: 99px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 0;
@@ -141,9 +145,9 @@ body {
 /* ── Card ── */
 .card {
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
-  border: 1px solid #d1dce8;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  border: 1px solid #E5E7EB;
   overflow: hidden;
 }
 .card-body {
@@ -155,26 +159,26 @@ body {
 }
 .question-number {
   display: inline-block;
-  background: #e8f2fb;
-  color: #1a6faf;
+  background: #E6EEF9;
+  color: #004F9F;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
   padding: 0.22rem 0.6rem;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-bottom: 0.65rem;
 }
 .question-text {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #1a2332;
+  color: #1A1A2E;
   line-height: 1.45;
   margin-bottom: 0.3rem;
 }
 .question-hint {
   font-size: 0.88rem;
-  color: #5a6a7e;
+  color: #6B7280;
   font-style: italic;
   margin-top: 0.25rem;
 }
@@ -192,36 +196,36 @@ body {
   gap: 0.9rem;
   width: 100%;
   padding: 0.9rem 1.1rem;
-  background: #f0f4f8;
-  border: 2px solid #d1dce8;
-  border-radius: 12px;
+  background: #F9FAFB;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
   cursor: pointer;
   text-align: left;
   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 500;
-  color: #1a2332;
+  color: #1A1A2E;
   transition: border-color 0.18s ease, background 0.18s ease,
               box-shadow 0.18s ease, transform 0.15s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 .option-btn:hover {
-  border-color: #1a6faf;
-  background: #e8f2fb;
-  box-shadow: 0 2px 8px rgba(26,111,175,0.12);
+  border-color: #004F9F;
+  background: #E6EEF9;
+  box-shadow: 0 2px 8px rgba(0,79,159,0.10);
   transform: translateX(3px);
 }
 .option-btn.selected {
-  border-color: #1a6faf;
-  background: #e8f2fb;
-  box-shadow: 0 0 0 3px rgba(26,111,175,0.18);
+  border-color: #004F9F;
+  background: #E6EEF9;
+  box-shadow: 0 0 0 3px rgba(0,79,159,0.12);
 }
 .option-radio {
   width: 22px;
   height: 22px;
   min-width: 22px;
-  border: 2px solid #b0bec8;
+  border: 2px solid #D1D5DB;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -230,8 +234,8 @@ body {
   background: #ffffff;
 }
 .option-btn.selected .option-radio {
-  border-color: #1a6faf;
-  background: #1a6faf;
+  border-color: #004F9F;
+  background: #004F9F;
 }
 .option-radio-dot {
   width: 9px;
@@ -255,37 +259,37 @@ body {
   gap: 0.9rem;
   width: 100%;
   padding: 0.9rem 1.1rem;
-  background: #f0f4f8;
-  border: 2px solid #d1dce8;
-  border-radius: 12px;
+  background: #F9FAFB;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
   cursor: pointer;
   text-align: left;
   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 500;
-  color: #1a2332;
+  color: #1A1A2E;
   transition: border-color 0.18s ease, background 0.18s ease,
               box-shadow 0.18s ease, transform 0.15s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 .option-checkbox-btn:hover {
-  border-color: #1a6faf;
-  background: #e8f2fb;
-  box-shadow: 0 2px 8px rgba(26,111,175,0.12);
+  border-color: #004F9F;
+  background: #E6EEF9;
+  box-shadow: 0 2px 8px rgba(0,79,159,0.10);
   transform: translateX(3px);
 }
 .option-checkbox-btn.selected {
-  border-color: #1a6faf;
-  background: #e8f2fb;
-  box-shadow: 0 0 0 3px rgba(26,111,175,0.18);
+  border-color: #004F9F;
+  background: #E6EEF9;
+  box-shadow: 0 0 0 3px rgba(0,79,159,0.12);
 }
 .option-checkbox {
   width: 22px;
   height: 22px;
   min-width: 22px;
-  border: 2px solid #b0bec8;
-  border-radius: 5px;
+  border: 2px solid #D1D5DB;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,8 +297,8 @@ body {
   transition: border-color 0.18s, background 0.18s;
 }
 .option-checkbox-btn.selected .option-checkbox {
-  border-color: #1a6faf;
-  background: #1a6faf;
+  border-color: #004F9F;
+  background: #004F9F;
 }
 .option-checkbox-tick {
   color: #ffffff;
@@ -314,7 +318,7 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid #e4eaf2;
+  border-top: 1px solid #E5E7EB;
   margin-top: 0.5rem;
 }
 .btn {
@@ -323,7 +327,7 @@ body {
   justify-content: center;
   gap: 0.4rem;
   padding: 0.72rem 1.6rem;
-  border-radius: 10px;
+  border-radius: 6px;
   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 600;
@@ -338,29 +342,29 @@ body {
   transform: scale(0.96);
 }
 .btn-primary {
-  background: #1a6faf;
+  background: #004F9F;
   color: #ffffff;
-  border-color: #1a6faf;
+  border-color: #004F9F;
 }
 .btn-primary:hover:not(:disabled) {
-  background: #145a8e;
-  border-color: #145a8e;
-  box-shadow: 0 4px 14px rgba(26,111,175,0.32);
+  background: #003D7A;
+  border-color: #003D7A;
+  box-shadow: 0 4px 14px rgba(0,79,159,0.28);
 }
 .btn-primary:disabled {
-  opacity: 0.42;
+  opacity: 0.38;
   cursor: not-allowed;
   transform: none;
 }
 .btn-secondary {
   background: #ffffff;
-  color: #5a6a7e;
-  border-color: #d1dce8;
+  color: #6B7280;
+  border-color: #E5E7EB;
 }
 .btn-secondary:hover:not(:disabled) {
-  background: #f0f4f8;
-  border-color: #1a6faf;
-  color: #1a6faf;
+  background: #F9FAFB;
+  border-color: #004F9F;
+  color: #004F9F;
 }
 .btn-secondary:disabled {
   opacity: 0.38;
@@ -384,25 +388,25 @@ body {
 .results-icon {
   width: 34px;
   height: 34px;
-  color: #2eab6e;
+  color: #00A870;
   flex-shrink: 0;
 }
 .results-title {
   font-size: 1.45rem;
   font-weight: 800;
-  color: #1a2332;
+  color: #1A1A2E;
 }
 .results-intro {
   font-size: 0.95rem;
-  color: #5a6a7e;
+  color: #6B7280;
   margin-bottom: 1.5rem;
   line-height: 1.65;
 }
 /* ── No schemes box ── */
 .no-schemes-box {
-  background: #fdf0ef;
-  border: 2px solid #e8b4b0;
-  border-radius: 12px;
+  background: #FFF8E6;
+  border: 2px solid #F5C518;
+  border-radius: 8px;
   padding: 1.25rem 1.4rem;
   display: flex;
   gap: 0.9rem;
@@ -416,7 +420,7 @@ body {
 }
 .no-schemes-text {
   font-size: 0.96rem;
-  color: #a93226;
+  color: #92660A;
   line-height: 1.65;
 }
 /* ── Section label ── */
@@ -425,13 +429,13 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #8a9ab0;
+  color: #9CA3AF;
   margin: 1.4rem 0 0.55rem;
 }
 /* ── Scheme accordion cards ── */
 .scheme-card {
-  border: 2px solid #d1dce8;
-  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
   margin-bottom: 0.85rem;
   overflow: hidden;
   transition: box-shadow 0.2s;
@@ -448,22 +452,22 @@ body {
   user-select: none;
   transition: filter 0.15s;
 }
-/* Tier colours */
+/* ── Tier colours ── */
 .scheme-card.tier-stop .scheme-card-header,
 .scheme-card.tier-2    .scheme-card-header {
-  background: #eaf6f0;
-  border-left: 5px solid #2eab6e;
+  background: #E6F7F1;
+  border-left: 4px solid #00A870;
 }
 .scheme-card.tier-3 .scheme-card-header {
-  background: #e8f2fb;
-  border-left: 5px solid #1a6faf;
+  background: #E6EEF9;
+  border-left: 4px solid #004F9F;
 }
 .scheme-card.tier-info .scheme-card-header {
-  background: #fff8e6;
-  border-left: 5px solid #e6a817;
+  background: #FFF8E6;
+  border-left: 4px solid #F5C518;
 }
 .scheme-card-header:hover {
-  filter: brightness(0.96);
+  filter: brightness(0.97);
 }
 .scheme-badge {
   font-size: 0.68rem;
@@ -471,33 +475,33 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   padding: 0.2rem 0.55rem;
-  border-radius: 99px;
+  border-radius: 4px;
   flex-shrink: 0;
   white-space: nowrap;
 }
 .scheme-card.tier-stop .scheme-badge,
 .scheme-card.tier-2    .scheme-badge {
-  background: #2eab6e;
+  background: #00A870;
   color: #ffffff;
 }
 .scheme-card.tier-3 .scheme-badge {
-  background: #1a6faf;
+  background: #004F9F;
   color: #ffffff;
 }
 .scheme-card.tier-info .scheme-badge {
-  background: #e6a817;
-  color: #ffffff;
+  background: #F5C518;
+  color: #1A1A2E;
 }
 .scheme-card-title {
   flex: 1;
   font-size: 0.97rem;
   font-weight: 700;
-  color: #1a2332;
+  color: #1A1A2E;
   line-height: 1.38;
 }
 .scheme-card-chevron {
   font-size: 0.75rem;
-  color: #8a9ab0;
+  color: #9CA3AF;
   transition: transform 0.25s ease;
   flex-shrink: 0;
 }
@@ -518,7 +522,7 @@ body {
 }
 .scheme-card-body p {
   font-size: 0.91rem;
-  color: #4a5a6a;
+  color: #4B5563;
   line-height: 1.65;
   margin-bottom: 0.55rem;
 }
@@ -528,19 +532,19 @@ body {
 .scheme-note {
   font-size: 0.84rem;
   font-style: italic;
-  color: #5a6a7e;
-  background: #f0f4f8;
-  border-radius: 7px;
+  color: #6B7280;
+  background: #F4F6F8;
+  border-radius: 4px;
   padding: 0.55rem 0.8rem;
   margin-top: 0.65rem;
-  border-left: 3px solid #b0bec8;
+  border-left: 3px solid #D1D5DB;
 }
 .scheme-link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   margin-top: 0.75rem;
-  color: #1a6faf;
+  color: #004F9F;
   font-size: 0.89rem;
   font-weight: 600;
   text-decoration: none;
@@ -548,13 +552,13 @@ body {
   transition: border-color 0.18s;
 }
 .scheme-link:hover {
-  border-bottom-color: #1a6faf;
+  border-bottom-color: #004F9F;
 }
 /* ── Results footer ── */
 .results-footer {
   margin-top: 2rem;
   padding-top: 1.35rem;
-  border-top: 1px solid #e4eaf2;
+  border-top: 1px solid #E5E7EB;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -562,14 +566,14 @@ body {
 }
 .results-disclaimer {
   font-size: 0.83rem;
-  color: #8a9ab0;
+  color: #9CA3AF;
   font-style: italic;
   line-height: 1.6;
 }
 /* ── Page footer ── */
 .wizard-footer {
-  background: #1a2332;
-  color: rgba(255,255,255,0.55);
+  background: #1A1A2E;
+  color: rgba(255,255,255,0.50);
   text-align: center;
   padding: 1.15rem 1.25rem;
   font-size: 0.78rem;
