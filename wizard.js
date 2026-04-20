@@ -39,7 +39,7 @@ const SCHEMES = {
       'Continence aids and supports may be funded as part of an approved care plan.'
     ],
     note: 'Serious injuries only.',
-    link: 'https://niisq.qld.gov.au'
+    link: 'https://niis.qld.gov.au'
   },
   LSA: {
     id: 'LSA',
@@ -75,7 +75,7 @@ const SCHEMES = {
       'Continence aids and supports may be covered where the need arises from the accident injury.'
     ],
     note: null,
-    link: 'https://nt.gov.au/driving/accidents-and-licensing/motor-accidents-compensation'
+    link: 'https://www.ntmacc.com.au'
   },
   MAIB: {
     id: 'MAIB',
@@ -87,7 +87,7 @@ const SCHEMES = {
       'Continence aids and supports may be funded where the need is related to a transport accident injury.'
     ],
     note: null,
-    link: 'https://www.maib.com.au'
+    link: 'https://maib.tas.gov.au'
   },
   ACT_MVA_NIL: {
     id: 'ACT_MVA_NIL',
@@ -144,7 +144,7 @@ const SCHEMES = {
     tier: 'tier-stop',
     badge: 'Work Accident Scheme — QLD',
     body: [
-      'WorkSafe Queensland administers the workers\u2019 compensation scheme in Queensland.',
+      'WorkSafe Queensland administers the workers’ compensation scheme in Queensland.',
       'NIISQ may also provide support for workers with serious injuries sustained in work-related accidents.',
       'Continence aids may be covered under either scheme depending on injury severity and circumstances.'
     ],
@@ -223,7 +223,7 @@ const SCHEMES = {
       'A referral from a medical practitioner or relevant health professional is generally required.'
     ],
     note: 'Eligible if you hold a Gold Card, or a White Card with incontinence listed as an accepted condition.',
-    link: 'https://www.dva.gov.au/health-and-treatment/care-home-or-aged-care/rehabilitation-appliances-program-rap'
+    link: 'https://www.dva.gov.au/providers/programs-services-information-for-providers/rap-overview'
   },
   // ── NDIS ───────────────────────────────────────────────────
   NDIS: {
@@ -245,11 +245,11 @@ const SCHEMES = {
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
-      'The NDIS Early Childhood Approach supports children under 6 with developmental concerns or disability, and children under 9 with autism.',
-      'As your child is under 5, please enquire about the NDIS Early Childhood Approach, which provides early intervention supports before a formal NDIS plan may be needed.',
+      'The NDIS Early Childhood Approach supports children younger than 9 with developmental concerns or disability.',
+      'As your child is under 9, please enquire about the NDIS Early Childhood Approach, which provides early intervention supports before a formal NDIS plan may be needed.',
       'Contact the NDIS or an Early Childhood Partner in your area for more information.'
     ],
-    note: 'Relevant for children under 5. An NDIS plan may not be required to access early intervention supports.',
+    note: 'Relevant for children younger than 9. An NDIS plan may not be required to access early intervention supports.',
     link: 'https://www.ndis.gov.au/understanding/families-and-carers/early-childhood-approach'
   },
   // ── My Aged Care ───────────────────────────────────────────
@@ -260,8 +260,8 @@ const SCHEMES = {
     badge: 'Commonwealth Scheme',
     body: [
       'My Aged Care is the entry point to the aged care system in Australia for people aged 65 and over (or 50 and over for Aboriginal and Torres Strait Islander people, and those experiencing or at risk of homelessness).',
-      'Continence aids may be funded through a Home Care Package (HCP) or the Commonwealth Home Support Programme (CHSP), depending on your needs assessment.',
-      'You will need to register with My Aged Care and undergo an assessment by an Aged Care Assessment Team (ACAT) or Regional Assessment Service (RAS).'
+      'Continence aids may be funded through a Support at Home program or the Commonwealth Home Support Program (CHSP), depending on your needs assessment.',
+      'You will need to register with My Aged Care and undergo an assessment.'
     ],
     note: null,
     link: 'https://www.myagedcare.gov.au'
@@ -279,8 +279,8 @@ const SCHEMES = {
       'Payments are made directly to the participant and can be used to purchase continence aids of their choice.',
       'A referral from a medical practitioner or continence nurse is required to register.'
     ],
-    note: 'CAPS cannot be used alongside MASS in Queensland. CAPS takes a secondary role where MASS is available.',
-    link: 'https://www.health.gov.au/our-work/caps'
+    note: 'CAPS cannot be used alongside MASS in Queensland.',
+    link: 'https://www.health.gov.au/our-work/continence-aids-payment-scheme-caps'
   },
   // ── MASS (QLD) ─────────────────────────────────────────────
   MASS: {
@@ -310,7 +310,7 @@ const SCHEMES = {
       'A referral from a medical practitioner or continence nurse is required.'
     ],
     note: 'Can be used alongside CAPS.',
-    link: 'https://www.swep.org.au'
+    link: 'https://swep.bhs.org.au/'
   },
   ENABLE_NSW: {
     id: 'ENABLE_NSW',
@@ -351,7 +351,7 @@ const SCHEMES = {
       'A referral from a medical practitioner or continence nurse is required.'
     ],
     note: 'Can be used alongside CAPS.',
-    link: 'https://www.health.wa.gov.au/cpss'
+    link: 'https://www.wa.gov.au/service/health-care/public-health-services/apply-the-continence-product-subsidy-scheme-cpss'
   },
   COSA: {
     id: 'COSA',
@@ -364,7 +364,7 @@ const SCHEMES = {
       'Applicants must be WA residents, Australian citizens or permanent residents, have a permanent disability causing incontinence, and have been determined ineligible for the NDIS.'
     ],
     note: 'CoSA provides access to funding via the Continence Product Subsidy Scheme (CPSS).',
-    link: 'https://www.ndis.gov.au/understanding/how-ndis-works/continuity-support'
+    link: 'https://www.wa.gov.au/organisation/department-of-communities/continuity-of-support-arrangements-local-coordination'
   },
   TEP: {
     id: 'TEP',
@@ -378,7 +378,7 @@ const SCHEMES = {
       'A referral from a medical practitioner or relevant health professional is required.'
     ],
     note: 'Can supplement CAPS and My Aged Care funding.',
-    link: 'https://health.nt.gov.au/professionals/allied-health/territory-equipment-program'
+    link: 'https://health.nt.gov.au/professionals/disability-equipment-program/territory-equipment-program'
   }
 };
 // ─── Questions Definition ─────────────────────────────────────────────────────
@@ -389,10 +389,12 @@ const QUESTIONS = [
     hint: '',
     type: 'single',
     options: [
-      { value: 'under5', label: 'Under 5' },
-      { value: '5to15',  label: '5\u201315' },
-      { value: '16to49', label: '16\u201349' },
-      { value: '50to64', label: '50\u201364' },
+      { value: 'under3', label: 'Under 3' },
+      { value: '3to4',   label: '3 to 4' },
+      { value: '5to8',   label: '5 to 8' },
+      { value: '9to15',  label: '9 to 15' },
+      { value: '16to49', label: '16 to 49' },
+      { value: '50to64', label: '50 to 64' },
       { value: '65plus', label: '65 or older' }
     ],
     show: () => true
@@ -783,43 +785,53 @@ function restartWizard() {
 function computeResults() {
   const a = answers;
   // Convenience aliases
-  const age        = a.Q1;
-  const atsi       = a.Q2;          // 'yes'|'no'|undefined
-  const residency  = a.Q3;          // 'au_pr'|'nz'|'neither'
-  const medicare   = a.Q4;          // 'yes'|'no'|undefined
-  const state      = a.Q5;
-  const veteran    = a.Q6;          // 'yes'|'no'
-  const dvaCard    = a.Q7;          // 'gold'|'white_inc'|'white_no_inc'|'neither'|undefined
-  const mva        = a.Q8;          // 'yes'|'no'
-  const work       = a.Q9;          // 'yes'|'no'
-  const govWorker  = a.Q10;         // 'yes'|'no'|undefined
-  const disability = a.Q11;         // 'yes'|'no'
-  const ndis       = a.Q12;         // 'yes_maybe'|'no'|undefined
-  const lifelong   = a.Q13;         // 'yes'|'no'
-  const cause      = a.Q14;         // 'neuro'|'non_neuro'|'unsure'|undefined
-  const cards      = a.Q15 || [];   // array
-  const isAuPR     = residency === 'au_pr';
-  const isNZ       = residency === 'nz';
+  const age         = a.Q1;
+  const atsi        = a.Q2;          // 'yes'|'no'|undefined
+  const residency   = a.Q3;          // 'au_pr'|'nz'|'neither'
+  const medicare    = a.Q4;          // 'yes'|'no'|undefined
+  const state       = a.Q5;
+  const veteran     = a.Q6;          // 'yes'|'no'
+  const dvaCard     = a.Q7;          // 'gold'|'white_inc'|'white_no_inc'|'neither'|undefined
+  const mva         = a.Q8;          // 'yes'|'no'
+  const work        = a.Q9;          // 'yes'|'no'
+  const govWorker   = a.Q10;         // 'yes'|'no'|undefined
+  const disability  = a.Q11;         // 'yes'|'no'
+  const ndis        = a.Q12;         // 'yes_maybe'|'no'|undefined
+  const lifelong    = a.Q13;         // 'yes'|'no'
+  const cause       = a.Q14;         // 'neuro'|'non_neuro'|'unsure'|undefined
+  const cards       = a.Q15 || [];   // array
+  const isAuPR      = residency === 'au_pr';
+  const isNZ        = residency === 'nz';
   const hasMedicare = medicare === 'yes';
+  // Age-related helpers
+  const isUnder9 = age === 'under3' || age === '3to4' || age === '5to8';
+  const isCosaAge =
+    age === '3to4' ||
+    age === '5to8' ||
+    age === '9to15' ||
+    age === '16to49' ||
+    age === '50to64';
   // Eligible for aged care pathway?
   const agedCareAge = age === '65plus' || (age === '50to64' && atsi === 'yes');
   const agedCareResidency = isAuPR || isNZ || hasMedicare;
-  const hasPCC     = cards.includes('pcc');
-  const hasHCC     = cards.includes('hcc');
+  const hasPCC = cards.includes('pcc');
+  const hasHCC = cards.includes('hcc');
   const hasQldSenior = cards.includes('qld_senior');
   const hasAnyConcession = hasPCC || hasHCC || hasQldSenior;
   // Result buckets
-  const tier1    = [];  // MVA / Work / DVA RAP — STOP schemes
-  const tier2    = [];  // NDIS, My Aged Care, CAPS, MASS
-  const tier3    = [];  // State top-up schemes
-  let   stopHere = false;
-   // ── EARLY EXIT CHECK ─────────────────────────────────────────
+  const tier1 = [];  // MVA / Work / DVA RAP — STOP schemes
+  const tier2 = [];  // NDIS, My Aged Care, CAPS, MASS
+  const tier3 = [];  // State top-up schemes
+  let stopHere = false;
+  // ── EARLY EXIT CHECK ─────────────────────────────────────────
   // Condition A: no lifelong, no MVA, no work, no veteran, no disability,
   // AND not eligible for My Aged Care based on age
   const notAgedCareAge =
-    age === 'under5' ||
-    age === '5to15'  ||
-    age === '16to49' ||
+    age === 'under3' ||
+    age === '3to4'    ||
+    age === '5to8'    ||
+    age === '9to15'   ||
+    age === '16to49'  ||
     (age === '50to64' && atsi !== 'yes');
   const conditionA =
     lifelong   === 'no' &&
@@ -841,13 +853,13 @@ function computeResults() {
   // ── TIER 1: MVA ───────────────────────────────────────────────
   if (mva === 'yes') {
     switch (state) {
-      case 'VIC': tier1.push(SCHEMES.TAC);        break;
-      case 'NSW': tier1.push(SCHEMES.ICARE_MVA);  break;
-      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA);  break;
-      case 'SA':  tier1.push(SCHEMES.LSA);        break;
-      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);   break;
-      case 'NT':  tier1.push(SCHEMES.MAC);        break;
-      case 'TAS': tier1.push(SCHEMES.MAIB);       break;
+      case 'VIC': tier1.push(SCHEMES.TAC);         break;
+      case 'NSW': tier1.push(SCHEMES.ICARE_MVA);   break;
+      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA);   break;
+      case 'SA':  tier1.push(SCHEMES.LSA);         break;
+      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);    break;
+      case 'NT':  tier1.push(SCHEMES.MAC);         break;
+      case 'TAS': tier1.push(SCHEMES.MAIB);        break;
       case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL); break;
       default:    break;
     }
@@ -859,14 +871,14 @@ function computeResults() {
       tier1.push(SCHEMES.COMCARE);
     } else {
       switch (state) {
-        case 'VIC': tier1.push(SCHEMES.WORKSAFE_VIC);  break;
-        case 'NSW': tier1.push(SCHEMES.ICARE_WORK);    break;
-        case 'QLD': tier1.push(SCHEMES.WORKSAFE_QLD);  break;
-        case 'WA':  tier1.push(SCHEMES.ICWA_WORK);     break;
-        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);   break;
-        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL);  break;
-        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);   break;
-        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL);  break;
+        case 'VIC': tier1.push(SCHEMES.WORKSAFE_VIC); break;
+        case 'NSW': tier1.push(SCHEMES.ICARE_WORK);   break;
+        case 'QLD': tier1.push(SCHEMES.WORKSAFE_QLD); break;
+        case 'WA':  tier1.push(SCHEMES.ICWA_WORK);    break;
+        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);  break;
+        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL); break;
+        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);  break;
+        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL); break;
         default:    break;
       }
     }
@@ -877,26 +889,21 @@ function computeResults() {
     return { noSchemes: false, tier1, tier2: [], tier3: [] };
   }
   // ── TIER 1: DVA RAP ──────────────────────────────────────────
-  let dvaRapRecommended = false;
   if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
     tier1.push(SCHEMES.DVA_RAP);
-    dvaRapRecommended = true;
     return { noSchemes: false, tier1, tier2: [], tier3: [] };
   }
-  // If veteran but wrong card type — continue to Tier 2
   // ── TIER 2: NDIS ──────────────────────────────────────────────
-  let ndisRecommended = false;
   if (
     disability === 'yes' &&
     ndis === 'yes_maybe' &&
     (isAuPR || isNZ)
   ) {
-    if (age === 'under5') {
+    if (isUnder9) {
       tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
     } else {
       tier2.push(SCHEMES.NDIS);
     }
-    ndisRecommended = true;
     return { noSchemes: false, tier1, tier2, tier3: [] };
   }
   // ── TIER 2: MY AGED CARE ──────────────────────────────────────
@@ -904,46 +911,37 @@ function computeResults() {
   if (agedCareAge && agedCareResidency) {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
-    // Do NOT stop — continue to Tier 3
   }
   // ── TIER 2: MASS (QLD only, if My Aged Care NOT recommended) ──
   let massRecommended = false;
   if (!myAgedCareRecommended && state === 'QLD' && isAuPR && lifelong === 'yes' && hasAnyConcession) {
     tier2.push(SCHEMES.MASS);
     massRecommended = true;
-    // Continue to Tier 3
   }
   // ── TIER 2: CAPS ──────────────────────────────────────────────
   // Only if: not My Aged Care, not QLD (MASS takes priority), AU citizen/PR,
-  // lifelong, age 5+, and correct cause/card combination
-  let capsRecommended = false;
+  // lifelong, age 3+, and correct cause/card combination
   if (
     !myAgedCareRecommended &&
     !massRecommended &&
     state !== 'QLD' &&
     isAuPR &&
     lifelong === 'yes' &&
-    age !== 'under5'
+    age !== 'under3'
   ) {
     const capsQualifies =
       cause === 'neuro' ||
       (cause === 'non_neuro' && hasPCC) ||
-      (cause === 'unsure'    && hasPCC);
+      (cause === 'unsure' && hasPCC);
     if (capsQualifies) {
       tier2.push(SCHEMES.CAPS);
-      capsRecommended = true;
     }
   }
   // ── EARLY EXIT: No schemes at all ────────────────────────────
-  // If we reach here with nothing in tier1/tier2 and lifelong = 'no'
-  if (
-    tier1.length === 0 &&
-    tier2.length === 0
-  ) {
+  if (tier1.length === 0 && tier2.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
-  // Only if MVA, Work, DVA RAP, NDIS not recommended
   // VIC — SWEP
   if (
     state === 'VIC' &&
@@ -986,7 +984,8 @@ function computeResults() {
     isAuPR &&
     disability === 'yes' &&
     ndis === 'no' &&
-    lifelong === 'yes'
+    lifelong === 'yes' &&
+    isCosaAge
   ) {
     tier3.push(SCHEMES.COSA);
   }
@@ -1004,6 +1003,7 @@ function computeResults() {
   // TAS — No Tier 3 scheme identified
   return { noSchemes: false, tier1, tier2, tier3 };
 }
+
 // ─── Results Rendering ────────────────────────────────────────────────────────
 function showResults() {
   const result = computeResults();
