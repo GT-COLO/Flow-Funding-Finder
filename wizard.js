@@ -1041,7 +1041,7 @@ function showResults() {
     return;
   }
   const count = allSchemes.length;
-  intro.textContent = `Based on your answers, we have identified ${count} potential funding scheme${count !== 1 ? 's' : ''} you may be eligible for. Click each scheme to learn more.`;
+  intro.textContent = `Based on your answers, we have identified ${count} most suitable funding scheme${count !== 1 ? 's' : ''} you may be eligible for. Click each scheme to learn more.`;
   // Tier 1
   if (result.tier1.length > 0) {
     const label = document.createElement('p');
@@ -1066,7 +1066,7 @@ function showResults() {
   if (result.tier2.length > 0) {
     const label = document.createElement('p');
     label.className   = 'results-section-label';
-    label.textContent = 'Primary Funding Scheme';
+    label.textContent = 'Priority Scheme';
     content.appendChild(label);
     result.tier2.forEach(s => content.appendChild(buildSchemeCard(s)));
   }
@@ -1074,7 +1074,7 @@ function showResults() {
   if (result.tier3.length > 0) {
     const label = document.createElement('p');
     label.className   = 'results-section-label';
-    label.textContent = 'State-Based Top-Up Scheme';
+    label.textContent = 'State-Based Scheme';
     content.appendChild(label);
     result.tier3.forEach(s => content.appendChild(buildSchemeCard(s)));
   }
