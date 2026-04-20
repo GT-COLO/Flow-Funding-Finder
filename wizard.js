@@ -337,7 +337,7 @@ const SCHEMES = {
       'A referral from a medical practitioner or relevant health professional is required.'
     ],
     note: null,
-    link: 'https://www.health.act.gov.au/services-and-programs/actes'
+    link: 'https://www.canberrahealthservices.act.gov.au/services-and-clinics/services/act-equipment-scheme-actes'
   },
   CPSS: {
     id: 'CPSS',
