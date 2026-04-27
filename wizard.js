@@ -144,7 +144,7 @@ const SCHEMES = {
     tier: 'tier-stop',
     badge: 'Work Accident Scheme — QLD',
     body: [
-      'WorkSafe Queensland administers the workers’ compensation scheme in Queensland.',
+      'WorkSafe Queensland administers the workers\u2019 compensation scheme in Queensland.',
       'NIISQ may also provide support for workers with serious injuries sustained in work-related accidents.',
       'Continence aids may be covered under either scheme depending on injury severity and circumstances.'
     ],
@@ -277,7 +277,7 @@ const SCHEMES = {
       'Eligible people include Australian citizens or permanent residents with a permanent bladder or bowel condition caused by certain conditions.',
       'A neurological condition automatically qualifies. For non-neurological conditions, a Pensioner Concession Card is also required.',
       'Payments are made directly to the participant and can be used to purchase continence aids of their choice.',
-      'A referral from a medical practitioner or continence nurse is required to register.'
+      'A medical practitioner or continence nurse is required to complete part of the registration form to register.'
     ],
     note: 'CAPS cannot be used alongside MASS in Queensland.',
     link: 'https://www.health.gov.au/our-work/continence-aids-payment-scheme-caps'
@@ -305,7 +305,7 @@ const SCHEMES = {
     badge: 'VIC State Scheme',
     body: [
       'SWEP administers the Victorian Aids and Equipment Program, which includes a Continence Aids Program (CA) for eligible Victorian residents.',
-      'Eligible applicants must be Victorian residents, Australian citizens or permanent residents, and either have a permanent disability causing incontinence or be aged 65 and over with continence needs.',
+      'Eligible applicants must be Victorian residents, Australian citizens or permanent residents, and either have a permanent incontinence or be aged or frailed with continence needs.',
       'SWEP can be used alongside CAPS to provide additional continence product funding.',
       'A referral from a medical practitioner or continence nurse is required.'
     ],
@@ -332,8 +332,8 @@ const SCHEMES = {
     tier: 'tier-3',
     badge: 'ACT State Scheme',
     body: [
-      'ACTES provides subsidised aids and equipment, including continence products, to eligible ACT residents with a permanent disability.',
-      'Eligible applicants must be ACT residents, Australian citizens or permanent residents, have a permanent disability causing incontinence, and hold a Pensioner Concession Card or Health Care Card.',
+      'ACTES provides subsidised aids and equipment, including continence products, to eligible ACT residents with a permanent disability, long-term incontinence, or frailed or aged.',
+      'Eligible applicants must be ACT residents, Australian citizens or permanent residents, and hold a Pensioner Concession Card or Health Care Card.',
       'A referral from a medical practitioner or relevant health professional is required.'
     ],
     note: null,
@@ -518,20 +518,20 @@ const QUESTIONS = [
     ],
     show: () => true
   },
-   {
-     id: 'Q12',
-     text: 'Have you been formally assessed and deemed ineligible for the National Disability Insurance Scheme (NDIS)?',
-     hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
-     type: 'single',
-     options: [
-       { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
-       { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
-     ],
-     show: (a) => a.Q11 === 'yes'
-   },
+  {
+    id: 'Q12',
+    text: 'Have you been formally assessed and deemed ineligible for the National Disability Insurance Scheme (NDIS)?',
+    hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
+    type: 'single',
+    options: [
+      { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
+      { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
+    ],
+    show: (a) => a.Q11 === 'yes'
+  },
   {
     id: 'Q13',
-    text: 'Is your incontinence likely to be lifelong?',
+    text: 'Is your incontinence likely to be long-term or lifelong?',
     hint: '',
     type: 'single',
     options: [
@@ -553,12 +553,25 @@ const QUESTIONS = [
       {
         value: 'non_neuro',
         label: 'Non-neurological condition (e.g. prostate problems, pelvic floor weakness, bladder overactivity)'
-      },
+      }
     ],
     show: (a) => a.Q13 === 'yes'
   },
+  // ← NEW: Q15 — TAI funding question
   {
     id: 'Q15',
+    text: 'Do you need funding support for transanal irrigation systems and/or plugs?',
+    hint: '',
+    type: 'single',
+    options: [
+      { value: 'yes', label: 'Yes' },
+      { value: 'no',  label: 'No' }
+    ],
+    show: () => true
+  },
+  // ← MODIFIED: Previously Q15, now Q16
+  {
+    id: 'Q16',
     text: 'Do you currently hold any of the following concession cards?',
     hint: 'Select all that apply.',
     type: 'multi',
@@ -593,6 +606,7 @@ function getNextQuestionId(afterId) {
   }
   return null;
 }
+
 function getQuestionDisplayNumber(id) {
   let n = 0;
   for (const q of QUESTIONS) {
@@ -615,7 +629,7 @@ function getMultiAnswer(id) {
 }
 function hasCard(cards) {
   // cards = array of strings e.g. ['pcc','hcc']
-  const held = getMultiAnswer('Q15');
+  const held = getMultiAnswer('Q16'); // ← MODIFIED: was Q15, now Q16
   return cards.some(c => held.includes(c));
 }
 // ─── Render ───────────────────────────────────────────────────────────────────
@@ -670,7 +684,7 @@ function renderQuestion(qId) {
       const btn = document.createElement('button');
       btn.className = 'option-checkbox-btn';
       btn.type      = 'button';
-      btn.dataset.value = opt.value;  
+      btn.dataset.value = opt.value;
       const alreadySelected = answers[q.id].includes(opt.value);
       if (alreadySelected) btn.classList.add('selected');
       btn.innerHTML = `
@@ -696,7 +710,7 @@ function renderQuestion(qId) {
             answers[q.id] = [];
           }
         } else {
-          // Deselect "None" option if it was selected — match by data attribute, not label text
+          // Deselect "None" option if it was selected
           container.querySelectorAll('.option-checkbox-btn[data-value="none"]').forEach(b => {
             b.classList.remove('selected');
           });
@@ -778,21 +792,22 @@ function restartWizard() {
 // ─── Output Logic ─────────────────────────────────────────────────────────────
 function computeResults() {
   const a = answers;
-  const age         = a.Q1;
-  const atsi        = a.Q2;
-  const residency   = a.Q3;
-  const medicare    = a.Q4;
-  const state       = a.Q5;
-  const veteran     = a.Q6;
-  const dvaCard     = a.Q7;
-  const mva         = a.Q8;
-  const work        = a.Q9;
-  const govWorker   = a.Q10;
-  const disability  = a.Q11;
-  const ndisIneligible = a.Q12;   // 'yes' = formally deemed ineligible; 'no' = not assessed / participant
-  const lifelong    = a.Q13;
-  const cause       = a.Q14;
-  const cards       = a.Q15 || [];
+  const age            = a.Q1;
+  const atsi           = a.Q2;
+  const residency      = a.Q3;
+  const medicare       = a.Q4;
+  const state          = a.Q5;
+  const veteran        = a.Q6;
+  const dvaCard        = a.Q7;
+  const mva            = a.Q8;
+  const work           = a.Q9;
+  const govWorker      = a.Q10;
+  const disability     = a.Q11;
+  const ndisIneligible = a.Q12;  // 'yes' = formally deemed ineligible; 'no' = not assessed / participant
+  const lifelong       = a.Q13;
+  const cause          = a.Q14;
+  const tai            = a.Q15; // ← NEW: TAI funding question
+  const cards          = a.Q16 || []; // ← MODIFIED: was Q15, now Q16
   const isAuPR      = residency === 'au_pr';
   const isNZ        = residency === 'nz';
   const hasMedicare = medicare === 'yes';
@@ -809,6 +824,8 @@ function computeResults() {
   const hasHCC           = cards.includes('hcc');
   const hasQldSenior     = cards.includes('qld_senior');
   const hasAnyConcession = hasPCC || hasHCC || hasQldSenior;
+  // ← NEW: flag indicating the user needs TAI funding support
+  const needsTAI = tai === 'yes';
   const tier1 = [];
   const tier2 = [];
   const tier3 = [];
@@ -837,7 +854,6 @@ function computeResults() {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
   // ── TIER 1: MVA ─────────────────────────────────────────────
-  // Track whether a real (non-NIL) MVA scheme was found
   let mvaHasScheme = false;
   if (mva === 'yes') {
     switch (state) {
@@ -848,16 +864,14 @@ function computeResults() {
       case 'WA':  tier1.push(SCHEMES.ICWA_MVA);    mvaHasScheme = true; break;
       case 'NT':  tier1.push(SCHEMES.MAC);         mvaHasScheme = true; break;
       case 'TAS': tier1.push(SCHEMES.MAIB);        mvaHasScheme = true; break;
-      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL);                      break; // no scheme — fall through
+      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL);                      break;
       default: break;
     }
-    // Only stop if a real scheme was found
     if (mvaHasScheme) {
       return { noSchemes: false, tier1, tier2: [], tier3: [] };
     }
   }
   // ── TIER 1: WORK ACCIDENT ────────────────────────────────────
-  // Track whether a real (non-NIL) work scheme was found
   let workHasScheme = false;
   if (work === 'yes') {
     if (govWorker === 'yes') {
@@ -876,7 +890,6 @@ function computeResults() {
         default: break;
       }
     }
-    // Only stop if a real scheme was found
     if (workHasScheme) {
       return { noSchemes: false, tier1, tier2: [], tier3: [] };
     }
@@ -887,22 +900,19 @@ function computeResults() {
     return { noSchemes: false, tier1, tier2: [], tier3: [] };
   }
   // ── TIER 2: NDIS ─────────────────────────────────────────────
-  // Recommend NDIS if disability=yes, not formally deemed ineligible, and AU/NZ resident
-     if (
-     disability === 'yes'     &&
-     ndisIneligible !== 'yes' &&
-     (isAuPR || isNZ)         &&
-     age !== '65plus'
-   ) {
-     if (isUnder9) {
-       tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
-     } else {
-       tier2.push(SCHEMES.NDIS);
-     }
-     // Always return early — NDIS blocks all Tier 3
-     // regardless of whether a NIL scheme is in Tier 1
-     return { noSchemes: false, tier1, tier2, tier3: [] };
-   }
+  if (
+    disability === 'yes'     &&
+    ndisIneligible !== 'yes' &&
+    (isAuPR || isNZ)         &&
+    age !== '65plus'
+  ) {
+    if (isUnder9) {
+      tier2.push(SCHEMES.NDIS_EARLY_CHILDHOOD);
+    } else {
+      tier2.push(SCHEMES.NDIS);
+    }
+    return { noSchemes: false, tier1, tier2, tier3: [] };
+  }
   // ── TIER 2: MY AGED CARE ─────────────────────────────────────
   let myAgedCareRecommended = false;
   if (agedCareAge && agedCareResidency) {
@@ -910,18 +920,22 @@ function computeResults() {
     myAgedCareRecommended = true;
   }
   // ── TIER 2: MASS (QLD only) ───────────────────────────────────
+  // ← MODIFIED: excluded when user needs TAI funding (needsTAI = true)
   let massRecommended = false;
   if (
-     !myAgedCareRecommended &&
-     state === 'QLD'        &&
-     isAuPR                 &&
-     lifelong === 'yes'     &&
-     hasAnyConcession
-    ) {
-     tier2.push(SCHEMES.MASS);
-     massRecommended = true;
-   }
+    !myAgedCareRecommended &&
+    !needsTAI              && // ← NEW: skip MASS if TAI funding is needed
+    state === 'QLD'        &&
+    isAuPR                 &&
+    lifelong === 'yes'     &&
+    hasAnyConcession
+  ) {
+    tier2.push(SCHEMES.MASS);
+    massRecommended = true;
+  }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
+  // ← MODIFIED: massRecommended will now be false when needsTAI=true,
+  //   allowing CAPS to be evaluated for QLD users needing TAI funding
   if (
     !myAgedCareRecommended &&
     !massRecommended       &&
@@ -937,104 +951,88 @@ function computeResults() {
       tier2.push(SCHEMES.CAPS);
     }
   }
- 
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
-const capsRecommended = tier2.some(s => s.id === 'CAPS');
-   // VIC — SWEP
-   // Allowed alongside CAPS; blocked for My Aged Care
-   if (
-     state === 'VIC'        &&
-     isAuPR                 &&
-     lifelong === 'yes'     &&
-     !myAgedCareRecommended &&   // ← My Aged Care blocks SWEP
-     (disability === 'yes' || age === '65plus')
-   ) {
-     tier3.push(SCHEMES.SWEP);
-   }
-   // NSW — EnableNSW
-   // Allowed alongside CAPS; blocked for My Aged Care
-   if (
-     state === 'NSW'                       &&
-     (isAuPR || isNZ || hasMedicare)       &&
-     lifelong === 'yes'                    &&
-     !myAgedCareRecommended                   // ← My Aged Care blocks EnableNSW
-   ) {
-     tier3.push(SCHEMES.ENABLE_NSW);
-   }
-   // ACT — ACTES
-   // Blocked for both CAPS and My Aged Care
-   if (
-     state === 'ACT'          &&
-     isAuPR                   &&
-     disability === 'yes'     &&
-     (hasPCC || hasHCC)       &&
-     !capsRecommended         &&   // ← CAPS blocks ACTES
-     !myAgedCareRecommended        // ← My Aged Care blocks ACTES
-   ) {
-     tier3.push(SCHEMES.ACTES);
-   }
-   // WA — CPSS
-   // Allowed alongside CAPS; blocked for My Aged Care
-   if (
-     state === 'WA'                                              &&
-     isAuPR                                                      &&
-     (age === '16to49' || age === '50to64' || age === '65plus')  &&
-     lifelong === 'yes'                                          &&
-     (hasPCC || hasHCC)                                          &&
-     !myAgedCareRecommended                                         // ← My Aged Care blocks CPSS
-   ) {
-     tier3.push(SCHEMES.CPSS);
-   }
-   // WA — CoSA (only if CPSS not eligible)
-   // Allowed alongside CAPS; blocked for My Aged Care
-   if (
-     state === 'WA'           &&
-     isAuPR                   &&
-     disability === 'yes'     &&
-     ndisIneligible === 'yes' &&
-     lifelong === 'yes'       &&
-     isCosaAge                &&
-     !(hasPCC || hasHCC)      &&
-     !myAgedCareRecommended        // ← My Aged Care blocks CoSA
-   ) {
-     tier3.push(SCHEMES.COSA);
-   }
-   // NT — TEP
-   // Allowed alongside CAPS and My Aged Care
-   // Under 16: lifelong incontinence sufficient
-   // 16+: must also hold PCC or have a permanent disability
-   if (
-     state === 'NT'     &&
-     isAuPR             &&
-     lifelong === 'yes' &&
-     (
-       age === 'under3' ||
-       age === '3to4'   ||
-       age === '5to8'   ||
-       age === '9to15'  ||
-       (age === '16to49' && (hasPCC || disability === 'yes')) ||
-       (age === '50to64' && (hasPCC || disability === 'yes')) ||
-       (age === '65plus' && (hasPCC || disability === 'yes'))
-     )
-     // No Tier 2 Commonwealth scheme blocks TEP —
-     // it is explicitly allowed alongside both CAPS and My Aged Care
-   ) {
-     tier3.push(SCHEMES.TEP);
-   }
-
- // ── EARLY EXIT: No schemes at all ────────────────────────────
+  const capsRecommended = tier2.some(s => s.id === 'CAPS');
+  // VIC — SWEP
+  if (
+    state === 'VIC'        &&
+    isAuPR                 &&
+    !myAgedCareRecommended &&
+    (age === '65plus' || lifelong === 'yes')
+  ) {
+    tier3.push(SCHEMES.SWEP);
+  }
+  // NSW — EnableNSW
+  if (
+    state === 'NSW'                       &&
+    (isAuPR || isNZ || hasMedicare)       &&
+    lifelong === 'yes'                    &&
+    !myAgedCareRecommended
+  ) {
+    tier3.push(SCHEMES.ENABLE_NSW);
+  }
+  // ACT — ACTES
+  if (
+    state === 'ACT'          &&
+    isAuPR                   &&
+    (hasPCC || hasHCC)       &&
+    !myAgedCareRecommended
+  ) {
+    tier3.push(SCHEMES.ACTES);
+  }
+  // WA — CPSS
+  if (
+    state === 'WA'                                              &&
+    isAuPR                                                      &&
+    (age === '16to49' || age === '50to64' || age === '65plus')  &&
+    lifelong === 'yes'                                          &&
+    (hasPCC || hasHCC)                                          &&
+    !myAgedCareRecommended
+  ) {
+    tier3.push(SCHEMES.CPSS);
+  }
+  // WA — CoSA (only if CPSS not eligible)
+  if (
+    state === 'WA'           &&
+    isAuPR                   &&
+    disability === 'yes'     &&
+    ndisIneligible === 'yes' &&
+    lifelong === 'yes'       &&
+    isCosaAge                &&
+    !(hasPCC || hasHCC)      &&
+    !myAgedCareRecommended
+  ) {
+    tier3.push(SCHEMES.COSA);
+  }
+  // NT — TEP
+  if (
+    state === 'NT'     &&
+    isAuPR             &&
+    lifelong === 'yes' &&
+    (
+      age === 'under3' ||
+      age === '3to4'   ||
+      age === '5to8'   ||
+      age === '9to15'  ||
+      (age === '16to49' && (hasPCC || disability === 'yes')) ||
+      (age === '50to64' && (hasPCC || disability === 'yes')) ||
+      (age === '65plus' && (hasPCC || disability === 'yes'))
+    )
+  ) {
+    tier3.push(SCHEMES.TEP);
+  }
+  // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
   return { noSchemes: false, tier1, tier2, tier3 };
 }
-
 // ─── Results Rendering ────────────────────────────────────────────────────────
 function showResults() {
   const result = computeResults();
-  document.getElementById('questionCard').style.display     = 'none';
+  document.getElementById('questionCard').style.display      = 'none';
   document.getElementById('progressContainer').style.display = 'none';
-  document.getElementById('resultsCard').style.display      = 'block';
+  document.getElementById('resultsCard').style.display       = 'block';
   const content = document.getElementById('resultsContent');
   const intro   = document.getElementById('resultsIntro');
   content.innerHTML = '';
