@@ -1,7 +1,7 @@
 /* ============================================================
    CONTINENCE FUNDING WIZARD — STYLESHEET
    Styled to align with Coloplast brand guidelines
-   Primary blue: #004F9F | Green: #00A870 | Grey: #6B7280
+   Primary dark teal: #1B3A4B | Accent teal: #007B8A | Grey: #6B7280
    ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -13,9 +13,9 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
-  background-color: #F4F6F8;
-  color: #1A1A2E;
+  font-family: 'Inter', 'Gill Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  background-color: #EAEAEA;  /* neutral light grey background */
+  color: #2C2C2C;
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -34,10 +34,10 @@ body {
 }
 /* ── Header ── */
 .wizard-header {
-  background: #004F9F;
+  background: #1B3A4B;        /* dark teal header */
   color: #ffffff;
   padding: 1.5rem 1.25rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .header-inner {
   max-width: 720px;
@@ -127,17 +127,17 @@ body {
 .progress-pct {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #004F9F;
+  color: #007B8A;             /* teal accent for percentage */
 }
 .progress-track {
   height: 6px;
-  background-color: #E5E7EB;
+  background-color: #D5D5D5;
   border-radius: 99px;
   overflow: hidden;
 }
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #004F9F, #00A870);
+  background: linear-gradient(90deg, #1B3A4B, #007B8A);  /* dark teal to teal */
   border-radius: 99px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 0;
@@ -147,7 +147,7 @@ body {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  border: 1px solid #E5E7EB;
+  border: 1px solid #DEDEDE;
   overflow: hidden;
 }
 .card-body {
@@ -159,8 +159,8 @@ body {
 }
 .question-number {
   display: inline-block;
-  background: #E6EEF9;
-  color: #004F9F;
+  background: #E0EAED;        /* soft teal tint */
+  color: #1B3A4B;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -172,7 +172,7 @@ body {
 .question-text {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #1A1A2E;
+  color: #2C2C2C;
   line-height: 1.45;
   margin-bottom: 0.3rem;
 }
@@ -196,30 +196,30 @@ body {
   gap: 0.9rem;
   width: 100%;
   padding: 0.9rem 1.1rem;
-  background: #F9FAFB;
-  border: 2px solid #E5E7EB;
+  background: #F5F5F5;
+  border: 2px solid #DEDEDE;
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
-  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  font-family: 'Inter', 'Gill Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 500;
-  color: #1A1A2E;
+  color: #2C2C2C;
   transition: border-color 0.18s ease, background 0.18s ease,
               box-shadow 0.18s ease, transform 0.15s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 .option-btn:hover {
-  border-color: #004F9F;
-  background: #E6EEF9;
-  box-shadow: 0 2px 8px rgba(0,79,159,0.10);
+  border-color: #007B8A;      /* teal on hover */
+  background: #E8F4F5;
+  box-shadow: 0 2px 8px rgba(0,123,138,0.10);
   transform: translateX(3px);
 }
 .option-btn.selected {
-  border-color: #004F9F;
-  background: #E6EEF9;
-  box-shadow: 0 0 0 3px rgba(0,79,159,0.12);
+  border-color: #007B8A;
+  background: #E8F4F5;
+  box-shadow: 0 0 0 3px rgba(0,123,138,0.12);
 }
 .option-radio {
   width: 22px;
@@ -234,8 +234,8 @@ body {
   background: #ffffff;
 }
 .option-btn.selected .option-radio {
-  border-color: #004F9F;
-  background: #004F9F;
+  border-color: #007B8A;      /* teal radio */
+  background: #007B8A;
 }
 .option-radio-dot {
   width: 9px;
@@ -259,30 +259,30 @@ body {
   gap: 0.9rem;
   width: 100%;
   padding: 0.9rem 1.1rem;
-  background: #F9FAFB;
-  border: 2px solid #E5E7EB;
+  background: #F5F5F5;
+  border: 2px solid #DEDEDE;
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
-  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  font-family: 'Inter', 'Gill Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 500;
-  color: #1A1A2E;
+  color: #2C2C2C;
   transition: border-color 0.18s ease, background 0.18s ease,
               box-shadow 0.18s ease, transform 0.15s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 .option-checkbox-btn:hover {
-  border-color: #004F9F;
-  background: #E6EEF9;
-  box-shadow: 0 2px 8px rgba(0,79,159,0.10);
+  border-color: #007B8A;
+  background: #E8F4F5;
+  box-shadow: 0 2px 8px rgba(0,123,138,0.10);
   transform: translateX(3px);
 }
 .option-checkbox-btn.selected {
-  border-color: #004F9F;
-  background: #E6EEF9;
-  box-shadow: 0 0 0 3px rgba(0,79,159,0.12);
+  border-color: #007B8A;
+  background: #E8F4F5;
+  box-shadow: 0 0 0 3px rgba(0,123,138,0.12);
 }
 .option-checkbox {
   width: 22px;
@@ -297,8 +297,8 @@ body {
   transition: border-color 0.18s, background 0.18s;
 }
 .option-checkbox-btn.selected .option-checkbox {
-  border-color: #004F9F;
-  background: #004F9F;
+  border-color: #007B8A;      /* teal checkbox */
+  background: #007B8A;
 }
 .option-checkbox-tick {
   color: #ffffff;
@@ -318,7 +318,7 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid #E5E7EB;
+  border-top: 1px solid #DEDEDE;
   margin-top: 0.5rem;
 }
 .btn {
@@ -328,7 +328,7 @@ body {
   gap: 0.4rem;
   padding: 0.72rem 1.6rem;
   border-radius: 6px;
-  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  font-family: 'Inter', 'Gill Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 0.97rem;
   font-weight: 600;
   border: 2px solid transparent;
@@ -341,30 +341,32 @@ body {
 .btn:active {
   transform: scale(0.96);
 }
+/* Primary button — teal accent */
 .btn-primary {
-  background: #004F9F;
+  background: #007B8A;
   color: #ffffff;
-  border-color: #004F9F;
+  border-color: #007B8A;
 }
 .btn-primary:hover:not(:disabled) {
-  background: #003D7A;
-  border-color: #003D7A;
-  box-shadow: 0 4px 14px rgba(0,79,159,0.28);
+  background: #006070;        /* slightly darker teal on hover */
+  border-color: #006070;
+  box-shadow: 0 4px 14px rgba(0,123,138,0.28);
 }
 .btn-primary:disabled {
   opacity: 0.38;
   cursor: not-allowed;
   transform: none;
 }
+/* Secondary button — neutral */
 .btn-secondary {
   background: #ffffff;
   color: #6B7280;
-  border-color: #E5E7EB;
+  border-color: #DEDEDE;
 }
 .btn-secondary:hover:not(:disabled) {
-  background: #F9FAFB;
-  border-color: #004F9F;
-  color: #004F9F;
+  background: #F5F5F5;
+  border-color: #007B8A;
+  color: #007B8A;
 }
 .btn-secondary:disabled {
   opacity: 0.38;
@@ -388,13 +390,13 @@ body {
 .results-icon {
   width: 34px;
   height: 34px;
-  color: #00A870;
+  color: #007B8A;             /* teal results icon */
   flex-shrink: 0;
 }
 .results-title {
   font-size: 1.45rem;
   font-weight: 800;
-  color: #1A1A2E;
+  color: #2C2C2C;
 }
 .results-intro {
   font-size: 0.95rem;
@@ -434,7 +436,7 @@ body {
 }
 /* ── Scheme accordion cards ── */
 .scheme-card {
-  border: 1px solid #E5E7EB;
+  border: 1px solid #DEDEDE;
   border-radius: 8px;
   margin-bottom: 0.85rem;
   overflow: hidden;
@@ -455,12 +457,12 @@ body {
 /* ── Tier colours ── */
 .scheme-card.tier-stop .scheme-card-header,
 .scheme-card.tier-2    .scheme-card-header {
-  background: #E6F7F1;
-  border-left: 4px solid #00A870;
+  background: #E0F4F5;        /* light teal tint */
+  border-left: 4px solid #007B8A;
 }
 .scheme-card.tier-3 .scheme-card-header {
-  background: #E6EEF9;
-  border-left: 4px solid #004F9F;
+  background: #E0EAED;        /* light dark-teal tint */
+  border-left: 4px solid #1B3A4B;
 }
 .scheme-card.tier-info .scheme-card-header {
   background: #FFF8E6;
@@ -481,11 +483,11 @@ body {
 }
 .scheme-card.tier-stop .scheme-badge,
 .scheme-card.tier-2    .scheme-badge {
-  background: #00A870;
+  background: #007B8A;        /* teal badge */
   color: #ffffff;
 }
 .scheme-card.tier-3 .scheme-badge {
-  background: #004F9F;
+  background: #1B3A4B;        /* dark teal badge */
   color: #ffffff;
 }
 .scheme-card.tier-info .scheme-badge {
@@ -496,7 +498,7 @@ body {
   flex: 1;
   font-size: 0.97rem;
   font-weight: 700;
-  color: #1A1A2E;
+  color: #2C2C2C;
   line-height: 1.38;
 }
 .scheme-card-chevron {
@@ -533,18 +535,18 @@ body {
   font-size: 0.84rem;
   font-style: italic;
   color: #6B7280;
-  background: #F4F6F8;
+  background: #EAEAEA;
   border-radius: 4px;
   padding: 0.55rem 0.8rem;
   margin-top: 0.65rem;
-  border-left: 3px solid #D1D5DB;
+  border-left: 3px solid #C5C5C5;
 }
 .scheme-link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   margin-top: 0.75rem;
-  color: #004F9F;
+  color: #007B8A;             /* teal links */
   font-size: 0.89rem;
   font-weight: 600;
   text-decoration: none;
@@ -552,13 +554,13 @@ body {
   transition: border-color 0.18s;
 }
 .scheme-link:hover {
-  border-bottom-color: #004F9F;
+  border-bottom-color: #007B8A;
 }
 /* ── Results footer ── */
 .results-footer {
   margin-top: 2rem;
   padding-top: 1.35rem;
-  border-top: 1px solid #E5E7EB;
+  border-top: 1px solid #DEDEDE;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -572,7 +574,7 @@ body {
 }
 /* ── Page footer ── */
 .wizard-footer {
-  background: #1A1A2E;
+  background: #1B3A4B;        /* dark teal footer */
   color: rgba(255,255,255,0.50);
   text-align: center;
   padding: 1.15rem 1.25rem;
