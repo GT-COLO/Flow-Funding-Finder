@@ -11,7 +11,7 @@ const SCHEMES = {
     tier: 'tier-stop',
     badge: 'MVA Scheme — VIC',
     body: [
-      'The TAC funds medical and like services for people injured in transport accidents in Victoria.',
+      'The TAC funds medical and like services for people injured in motor vehicle or transport accidents in Victoria.',
       'Continence aids and appliances may be covered where the need is related to the transport accident injury.'
     ],
     note: null,
@@ -232,7 +232,7 @@ const SCHEMES = {
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
-      'The NDIS provides funding for supports and services to Australians under 65 with a permanent and significant disability.',
+      'The NDIS provides funding for supports and services to Australians under 65 with a permanent disability or impairment leading to substantial reduced functional capacity.',
       'Continence aids and appliances can be funded under the NDIS as Consumables, where they are related to your disability.',
       'You must be an Australian citizen, permanent resident, or New Zealand citizen holding a Protected Special Category Visa, and be under 65 when you first apply.'
     ],
@@ -279,25 +279,23 @@ const SCHEMES = {
       'Payments are made directly to the participant and can be used to purchase continence aids of their choice.',
       'A medical practitioner or continence nurse is required to complete part of the registration form to register.'
     ],
-    note: 'CAPS cannot be used alongside MASS in Queensland.',
+    note: null,
     link: 'https://www.health.gov.au/our-work/continence-aids-payment-scheme-caps'
   },
-  // ── MASS (QLD) ─────────────────────────────────────────────
+  // ── State Tier 3 Schemes ────────────────────────────────────
   MASS: {
     id: 'MASS',
     name: 'Medical Aids Subsidy Scheme (MASS)',
-    tier: 'tier-2',
+    tier: 'tier-3',
     badge: 'QLD State Scheme',
     body: [
       'MASS is a Queensland Government program that subsidises the cost of medical aids and equipment, including continence products, for eligible Queensland residents.',
       'Eligible applicants must be Queensland residents, hold Australian citizenship or permanent residency, and hold a relevant concession card (Pensioner Concession Card, Health Care Card, or Queensland Government Seniors Card).',
-      'MASS generally provides a higher subsidy than CAPS and takes priority in Queensland. CAPS cannot be used alongside MASS.',
       'A referral from a medical practitioner or relevant allied health professional is required.'
     ],
-    note: 'MASS takes priority over CAPS in QLD due to its higher allocation. CAPS and MASS cannot be used together.',
+    note: null,
     link: 'https://www.health.qld.gov.au/mass'
   },
-  // ── State Tier 3 Schemes ────────────────────────────────────
   SWEP: {
     id: 'SWEP',
     name: 'State-Wide Equipment Program (SWEP) — Victorian Aids & Equipment Program (VA&EP) — Continence Aids Program (CA)',
@@ -919,26 +917,9 @@ function computeResults() {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
   }
-  // ── TIER 2: MASS (QLD only) ───────────────────────────────────
-  // ← MODIFIED: excluded when user needs TAI funding (needsTAI = true)
-  let massRecommended = false;
-  if (
-    !myAgedCareRecommended &&
-    !needsTAI              && // ← NEW: skip MASS if TAI funding is needed
-    state === 'QLD'        &&
-    isAuPR                 &&
-    lifelong === 'yes'     &&
-    hasAnyConcession
-  ) {
-    tier2.push(SCHEMES.MASS);
-    massRecommended = true;
-  }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
-  // ← MODIFIED: massRecommended will now be false when needsTAI=true,
-  //   allowing CAPS to be evaluated for QLD users needing TAI funding
   if (
     !myAgedCareRecommended &&
-    !massRecommended       &&
     isAuPR                 &&
     lifelong === 'yes'     &&
     age !== 'under3'       &&
@@ -971,6 +952,16 @@ function computeResults() {
   ) {
     tier3.push(SCHEMES.ENABLE_NSW);
   }
+   // QLD — MASS
+   if (
+     state === 'QLD'        &&
+     isAuPR                 &&
+     !myAgedCareRecommended &&
+     lifelong === 'yes'     &&
+     hasAnyConcession
+   ) {
+     tier3.push(SCHEMES.MASS);
+   }
   // ACT — ACTES
   if (
     state === 'ACT'          &&
