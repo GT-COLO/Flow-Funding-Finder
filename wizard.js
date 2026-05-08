@@ -382,20 +382,11 @@ const SCHEMES = {
 // ─── Questions Definition ─────────────────────────────────────────────────────
 const QUESTIONS = [
   {
-    id: 'Q1',
-    text: 'How old are you?',
-    hint: '',
-    type: 'single',
-    options: [
-      { value: 'under3', label: 'Under 3' },
-      { value: '3to4',   label: '3 to 4' },
-      { value: '5to8',   label: '5 to 8' },
-      { value: '9to15',  label: '9 to 15' },
-      { value: '16to49', label: '16 to 49' },
-      { value: '50to64', label: '50 to 64' },
-      { value: '65plus', label: '65 or older' }
-    ],
-    show: () => true
+  id: 'Q1',
+  text: 'How old are you?',
+  hint: 'Please enter your age in whole years.',
+  type: 'number',
+  show: () => true
   },
   {
     id: 'Q2',
@@ -406,7 +397,7 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: (a) => a.Q1 === '50to64'
+    show: (a) => a.Q1 >= 50 && a.Q1 <= 64
   },
   {
     id: 'Q3',
@@ -651,7 +642,32 @@ function renderQuestion(qId) {
   const container = document.getElementById('optionsContainer');
   container.innerHTML = '';
   const opts = typeof q.options === 'function' ? q.options(answers) : q.options;
-  if (q.type === 'single') {
+     if (q.type === 'number') {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'number-input-wrapper';
+    const input = document.createElement('input');
+    input.type        = 'number';
+    input.min         = '0';
+    input.max         = '120';
+    input.step        = '1';
+    input.placeholder = 'Enter your age';
+    input.className   = 'number-input';
+    input.value       = answers[q.id] !== undefined ? answers[q.id] : '';
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.disabled = input.value === '';
+    input.addEventListener('input', () => {
+      const raw = parseInt(input.value, 10);
+      if (!isNaN(raw) && raw >= 0 && raw <= 120) {
+        answers[q.id] = raw;
+        nextBtn.disabled = false;
+      } else {
+        delete answers[q.id];
+        nextBtn.disabled = true;
+      }
+    });
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  } else if (q.type === 'single') { 
     opts.forEach(opt => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
@@ -790,7 +806,15 @@ function restartWizard() {
 // ─── Output Logic ─────────────────────────────────────────────────────────────
 function computeResults() {
   const a = answers;
-  const age            = a.Q1;
+  const rawAge = a.Q1;
+  const age =
+    rawAge < 3                          ? 'under3' :
+    rawAge <= 4                         ? '3to4'   :
+    rawAge <= 8                         ? '5to8'   :
+    rawAge <= 15                        ? '9to15'  :
+    rawAge <= 49                        ? '16to49' :
+    rawAge <= 64                        ? '50to64' :
+                                          '65plus';
   const atsi           = a.Q2;
   const residency      = a.Q3;
   const medicare       = a.Q4;
