@@ -255,7 +255,7 @@ const SCHEMES = {
   // ── My Aged Care ───────────────────────────────────────────
   MY_AGED_CARE: {
     id: 'MY_AGED_CARE',
-    name: 'My Aged Care — Home Care Package / Commonwealth Home Support Programme (CHSP)',
+    name: 'My Aged Care — Commonwealth Home Support Program (CHSP) and Support at Home',
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
