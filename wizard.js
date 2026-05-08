@@ -644,14 +644,15 @@ function renderQuestion(qId) {
   const opts = typeof q.options === 'function' ? q.options(answers) : q.options;
      if (q.type === 'number') {
     const wrapper = document.createElement('div');
-    wrapper.className = 'number-input-wrapper';
-    const input = document.createElement('input');
-    input.type        = 'number';
-    input.min         = '0';
-    input.max         = '120';
-    input.step        = '1';
-    input.placeholder = 'Enter your age';
-    input.className   = 'number-input';
+      wrapper.className = 'age-input-wrapper';
+      const input = document.createElement('input');
+      input.type        = 'number';
+      input.min         = '0';
+      input.max         = '120';
+      input.step        = '1';
+      input.placeholder = 'e.g. 45';
+      input.className   = 'age-input';
+      input.inputMode   = 'numeric';
     input.value       = answers[q.id] !== undefined ? answers[q.id] : '';
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = input.value === '';
