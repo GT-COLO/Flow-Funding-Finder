@@ -274,8 +274,8 @@ const SCHEMES = {
     badge: 'Commonwealth Scheme',
     body: [
       'CAPS is an Australian Government scheme that provides a payment to assist eligible people with the cost of continence aids.',
-      'Eligible people include Australian citizens or permanent residents with a permanent bladder or bowel condition caused by certain conditions.',
-      'A neurological condition automatically qualifies. For non-neurological conditions, a Pensioner Concession Card is also required.',
+      'Eligible people include Australian citizens or permanent residents with a permanent bladder or bowel condition caused by neurological or non-neurological conditions.',
+      'For non-neurological conditions, a Pensioner Concession Card is also required.',
       'Payments are made directly to the participant and can be used to purchase continence aids of their choice.',
       'A medical practitioner or continence nurse is required to complete part of the registration form to register.'
     ],
@@ -291,7 +291,7 @@ const SCHEMES = {
     body: [
       'MASS is a Queensland Government program that subsidises the cost of medical aids and equipment, including continence products, for eligible Queensland residents.',
       'Eligible applicants must be Queensland residents, hold Australian citizenship or permanent residency, and hold a relevant concession card (Pensioner Concession Card, Health Care Card, or Queensland Government Seniors Card).',
-      'A referral from a medical practitioner or relevant allied health professional is required.'
+      'MASS can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
     note: null,
     link: 'https://www.health.qld.gov.au/mass'
@@ -303,26 +303,26 @@ const SCHEMES = {
     badge: 'VIC State Scheme',
     body: [
       'SWEP administers the Victorian Aids and Equipment Program, which includes a Continence Aids Program (CA) for eligible Victorian residents.',
-      'Eligible applicants must be Victorian residents, Australian citizens or permanent residents, and either have a permanent incontinence or be aged or frailed with continence needs.',
+      'Eligible applicants must be Victorian residents who are Australian citizens or permanent residents, and either have a permanent incontinence or be aged or frailed with continence needs.',
       'SWEP can be used alongside CAPS to provide additional continence product funding.',
-      'A referral from a medical practitioner or continence nurse is required.'
+      'SWEP can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
-    note: 'Can be used alongside CAPS.',
+    note: null,
     link: 'https://swep.bhs.org.au/'
   },
   ENABLE_NSW: {
     id: 'ENABLE_NSW',
-    name: 'EnableNSW — Aids & Equipment Program (AEP)',
+    name: 'EnableNSW — Aids & Equipment Program (AEP) - Continence Assistance',
     tier: 'tier-3',
     badge: 'NSW State Scheme',
     body: [
       'EnableNSW administers the Aids and Equipment Program, which provides subsidised aids, equipment and appliances to eligible NSW residents with permanent or long-term disabilities.',
       'Continence aids may be available under this program for eligible residents with permanent, lifelong incontinence.',
-      'Applicants must be enrolled in Medicare. Where eligible, CAPS should be accessed first, with EnableNSW acting as a supplementary funder.',
-      'A referral from a medical practitioner or relevant health professional is required.'
+      'Applicants must be enrolled in Medicare.',
+      'EnableNSW can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
     note: 'CAPS should be accessed first where eligible. EnableNSW provides supplementary funding.',
-    link: 'https://www.enable.health.nsw.gov.au'
+    link: 'https://www.enable.health.nsw.gov.au/services/continence#:~:text=EnableNSW%20provides%20assistance%20for%20consumers,Continence%20AidsPayment%20Scheme%20(CAPS).'
   },
   ACTES: {
     id: 'ACTES',
@@ -332,7 +332,7 @@ const SCHEMES = {
     body: [
       'ACTES provides subsidised aids and equipment, including continence products, to eligible ACT residents with a permanent disability, long-term incontinence, or frailed or aged.',
       'Eligible applicants must be ACT residents, Australian citizens or permanent residents, and hold a Pensioner Concession Card or Health Care Card.',
-      'A referral from a medical practitioner or relevant health professional is required.'
+      'ACTES can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
     note: null,
     link: 'https://www.canberrahealthservices.act.gov.au/services-and-clinics/services/act-equipment-scheme-actes'
@@ -345,7 +345,7 @@ const SCHEMES = {
     body: [
       'The CPSS is administered by CMAS and provides subsidised continence products to eligible Western Australian residents aged 16 and over.',
       'Eligible applicants must be WA residents, Australian citizens or permanent residents, aged 16 or over, have permanent lifelong incontinence, and hold a Pensioner Concession Card or Health Care Card.',
-      'CPSS can be used alongside CAPS to provide additional continence product funding.',
+      'CPSS can be used alongside the Continence Aids Payment Scheme (CAPS).',
       'A referral from a medical practitioner or continence nurse is required.'
     ],
     note: 'Can be used alongside CAPS.',
@@ -358,8 +358,9 @@ const SCHEMES = {
     badge: 'WA State Scheme',
     body: [
       'CoSA provides continued support for Western Australians with a permanent disability who are not eligible for the NDIS and were previously supported under state disability services.',
-      'CoSA provides access to continence product funding through the Continence Product Subsidy Scheme (CPSS).',
-      'Applicants must be WA residents, Australian citizens or permanent residents, have a permanent disability causing incontinence, and have been determined ineligible for the NDIS.'
+      'CoSA provides access to continence product funding through the Continence Product Subsidy Scheme (CPSS) of the Continence Management and Advice Service (CMAS).',
+      'Applicants must be WA residents, Australian citizens or permanent residents, have a permanent disability causing incontinence, and have been determined ineligible for the NDIS.',
+      'CoSA can supplement the Continence Aids Payment Scheme (CAPS).'
     ],
     note: 'CoSA provides access to funding via the Continence Product Subsidy Scheme (CPSS).',
     link: 'https://www.wa.gov.au/organisation/department-of-communities/continuity-of-support-arrangements-local-coordination'
@@ -372,11 +373,25 @@ const SCHEMES = {
     body: [
       'TEP provides subsidised aids and equipment, including continence products, to eligible Northern Territory residents.',
       'Eligible applicants must be NT residents, Australian citizens or permanent residents, with permanent lifelong incontinence, and either hold a Pensioner Concession Card or have a permanent disability causing incontinence.',
-      'TEP can supplement CAPS and My Aged Care to provide additional continence product funding.',
+      'TEP can supplement the Continence Aids Payment Scheme (CAPS).',
       'A referral from a medical practitioner or relevant health professional is required.'
     ],
-    note: 'Can supplement CAPS and My Aged Care funding.',
+    note: null,
     link: 'https://health.nt.gov.au/professionals/disability-equipment-program/territory-equipment-program'
+  },
+   TASEQUIP: {
+    id: 'TASEQUIP',
+    name: 'TasEquip',
+    tier: 'tier-3',
+    badge: 'TAS State Scheme',
+    body: [
+      'TasEquip provides a range of equipment to eligible Tasmanians to help them with everyday tasks at home, to live independently at home, or transition home from acute care.',
+      'Eligible applicants must be permanently living in Tasmania (for at least 3 months), hold an eligible concession card, live at home and not in residential aged care.',
+      'TasEquip can supplement the Continence Aids Payment Scheme (CAPS).',
+      'The equipment must be prescribed by the authorised therapist/prescriber.'
+    ],
+    note: null,
+    link: 'https://www.concessions.tas.gov.au/concessions/health/community_equipment_scheme_ces'
   }
 };
 // ─── Questions Definition ─────────────────────────────────────────────────────
@@ -992,7 +1007,8 @@ function computeResults() {
     state === 'ACT'          &&
     isAuPR                   &&
     (hasPCC || hasHCC)       &&
-    !myAgedCareRecommended
+    !myAgedCareRecommended   &&
+    lifelong === 'yes' 
   ) {
     tier3.push(SCHEMES.ACTES);
   }
@@ -1037,6 +1053,15 @@ function computeResults() {
   ) {
     tier3.push(SCHEMES.TEP);
   }
+   // TAS — TasEquip
+   if (
+     state === 'TAS' &&
+     isAuPR &&
+     (hasPCC || hasHCC) &&
+     !myAgedCareRecommended
+   ) {
+     tier3.push(SCHEMES.TASEQUIP);
+   }
   // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
