@@ -1085,6 +1085,7 @@ function computeResults() {
   if (agedCareAge && agedCareResidency) {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
+    return { noSchemes: false, tier1, tier2, tier3: [] }; 
   }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
   // Excluded if living in a residential aged care facility (inRACF)
@@ -1247,8 +1248,12 @@ function showResults() {
   }
   const count = allSchemes.length;
   intro.textContent = `Based on your answers, we have identified ${count} most suitable funding scheme${count !== 1 ? 's' : ''} you may be eligible for. Click each scheme to learn more.`;
-  // Tier 1
-  if (result.tier1.length > 0) {
+  const prioritySchemes = [...result.tier1, ...result.tier2];
+  const stateSchemes    = [...result.tier3];
+  // ── Left column — Priority schemes ──────────────────────────
+  if (prioritySchemes.length > 0) {
+    const col = document.createElement('div');
+    col.className = 'results-column';
     const label = document.createElement('p');
     label.className = 'results-section-label';
     const isMVAorWork = result.tier1.some(s =>
@@ -1264,24 +1269,27 @@ function showResults() {
     } else {
       label.textContent = 'Priority Scheme';
     }
-    content.appendChild(label);
-    result.tier1.forEach(s => content.appendChild(buildSchemeCard(s)));
+    col.appendChild(label);
+    prioritySchemes.forEach(s => col.appendChild(buildSchemeCard(s)));
+    content.appendChild(col);
   }
-  // Tier 2
-  if (result.tier2.length > 0) {
-    const label = document.createElement('p');
-    label.className   = 'results-section-label';
-    label.textContent = 'Priority Scheme';
-    content.appendChild(label);
-    result.tier2.forEach(s => content.appendChild(buildSchemeCard(s)));
-  }
-  // Tier 3
-  if (result.tier3.length > 0) {
+  // ── Right column — State-based schemes ──────────────────────
+  if (stateSchemes.length > 0) {
+    const col = document.createElement('div');
+    col.className = 'results-column';
     const label = document.createElement('p');
     label.className   = 'results-section-label';
     label.textContent = 'State-Based Scheme';
-    content.appendChild(label);
-    result.tier3.forEach(s => content.appendChild(buildSchemeCard(s)));
+    col.appendChild(label);
+    stateSchemes.forEach(s => col.appendChild(buildSchemeCard(s)));
+    content.appendChild(col);
+  }
+  // ── If only one column exists, make it full width ────────────
+  const columns = content.querySelectorAll('.results-column');
+  if (columns.length === 1) {
+    content.style.gridTemplateColumns = '1fr';
+  } else {
+    content.style.gridTemplateColumns = '';  // restore CSS default
   }
   scrollToTop();
 }
@@ -1297,16 +1305,17 @@ function buildSchemeCard(scheme) {
   `;
   const body = document.createElement('div');
   body.className = 'scheme-card-body';
-  // Body paragraphs
   let bodyHTML = scheme.body.map(p => `<p>${p}</p>`).join('');
   // ── Level of Funding or Subsidy block ──────────────────────
   if (scheme.subsidy) {
     let subsidyHTML = `<div class="scheme-subsidy-block">
-      <p class="scheme-subsidy-label">&#128181; Level of funding or support</p>`;
+      <p class="scheme-subsidy-label">&#128181; Level of funding or subsidy</p>`;
     if (scheme.subsidy.amount) {
       subsidyHTML += `<p class="scheme-subsidy-amount">
         ${scheme.subsidy.amount}
-        ${scheme.subsidy.period ? `<span class="scheme-subsidy-period">${scheme.subsidy.period}</span>` : ''}
+        ${scheme.subsidy.period
+          ? `<span class="scheme-subsidy-period">${scheme.subsidy.period}</span>`
+          : ''}
       </p>`;
     }
     if (scheme.subsidy.notes) {
@@ -1315,11 +1324,9 @@ function buildSchemeCard(scheme) {
     subsidyHTML += `</div>`;
     bodyHTML += subsidyHTML;
   }
-  // Note
   if (scheme.note) {
     bodyHTML += `<div class="scheme-note">&#128204; ${scheme.note}</div>`;
   }
-  // Link
   if (scheme.link) {
     bodyHTML += `
       <a class="scheme-link" href="${scheme.link}" target="_blank" rel="noopener noreferrer">
@@ -1328,10 +1335,10 @@ function buildSchemeCard(scheme) {
     `;
   }
   body.innerHTML = bodyHTML;
+  // ── Toggle open/close this card only ───────────────────────
+  // Removed close-others logic to allow multiple cards open at once
   header.addEventListener('click', () => {
-    const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.scheme-card.open').forEach(c => c.classList.remove('open'));
-    if (!isOpen) card.classList.add('open');
+    card.classList.toggle('open');
   });
   card.appendChild(header);
   card.appendChild(body);
