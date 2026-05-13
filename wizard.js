@@ -656,7 +656,7 @@ const QUESTIONS = [
   {
     id: 'Q12',
     text: 'Do you have a permanent disability that causes your incontinence?',
-    hint: 'e.g. spinal cord injury, brain injury, spina bifida, or multiple sclerosis',
+    hint: 'Disability defined as any intellectual, cognitive, neurological, sensory, or physical impairment',
     type: 'single',
     options: [
       { value: 'yes', label: 'Yes' },
