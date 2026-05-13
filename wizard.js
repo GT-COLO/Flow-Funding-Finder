@@ -255,7 +255,7 @@ const SCHEMES = {
   // ── My Aged Care ───────────────────────────────────────────
   MY_AGED_CARE: {
     id: 'MY_AGED_CARE',
-    name: 'My Aged Care — Commonwealth Home Support Program (CHSP) and Support at Home',
+    name: 'My Aged Care, including Support at Home and Commonwealth Home Support Program (CHSP)',
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
@@ -379,7 +379,7 @@ const SCHEMES = {
     note: null,
     link: 'https://health.nt.gov.au/professionals/disability-equipment-program/territory-equipment-program'
   },
-   TASEQUIP: {
+  TASEQUIP: {
     id: 'TASEQUIP',
     name: 'TasEquip',
     tier: 'tier-3',
@@ -397,11 +397,11 @@ const SCHEMES = {
 // ─── Questions Definition ─────────────────────────────────────────────────────
 const QUESTIONS = [
   {
-  id: 'Q1',
-  text: 'How old are you?',
-  hint: 'Please enter your age in whole years.',
-  type: 'number',
-  show: () => true
+    id: 'Q1',
+    text: 'How old are you?',
+    hint: 'Please enter your age in whole years.',
+    type: 'number',
+    show: () => true
   },
   {
     id: 'Q2',
@@ -454,8 +454,21 @@ const QUESTIONS = [
     ],
     show: () => true
   },
+  // ── NEW Q6 ──────────────────────────────────────────────────
   {
     id: 'Q6',
+    text: 'Do you currently live in a residential aged care facility?',
+    hint: '',
+    type: 'single',
+    options: [
+      { value: 'yes', label: 'Yes' },
+      { value: 'no',  label: 'No' }
+    ],
+    show: () => true
+  },
+  // ── Renumbered from Q6 onwards ──────────────────────────────
+  {
+    id: 'Q7',
     text: 'Are you a veteran, war widow/widower, or dependent of a veteran?',
     hint: '',
     type: 'single',
@@ -466,7 +479,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q7',
+    id: 'Q8',
     text: 'Which DVA card do you hold?',
     hint: '',
     type: 'single',
@@ -476,10 +489,10 @@ const QUESTIONS = [
       { value: 'white_no_inc', label: 'White Card without incontinence as an accepted condition' },
       { value: 'neither',      label: 'Neither' }
     ],
-    show: (a) => a.Q6 === 'yes'
+    show: (a) => a.Q7 === 'yes'
   },
   {
-    id: 'Q8',
+    id: 'Q9',
     text: 'Was your incontinence caused by a motor vehicle accident?',
     hint: '',
     type: 'single',
@@ -490,7 +503,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q9',
+    id: 'Q10',
     text: 'Was your incontinence caused by a work-related injury?',
     hint: '',
     type: 'single',
@@ -501,7 +514,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q10',
+    id: 'Q11',
     text: 'Do you work for an Australian Government agency or statutory authority?',
     hint: '',
     type: 'single',
@@ -509,10 +522,10 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: (a) => a.Q9 === 'yes'
+    show: (a) => a.Q10 === 'yes'
   },
   {
-    id: 'Q11',
+    id: 'Q12',
     text: 'Do you have a permanent disability that causes your incontinence?',
     hint: 'e.g. spinal cord injury, brain injury, spina bifida, or multiple sclerosis',
     type: 'single',
@@ -523,7 +536,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q12',
+    id: 'Q13',
     text: 'Have you been formally assessed and deemed ineligible for the National Disability Insurance Scheme (NDIS)?',
     hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
     type: 'single',
@@ -531,10 +544,10 @@ const QUESTIONS = [
       { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
       { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
     ],
-    show: (a) => a.Q11 === 'yes'
+    show: (a) => a.Q12 === 'yes'
   },
   {
-    id: 'Q13',
+    id: 'Q14',
     text: 'Is your incontinence likely to be long-term or lifelong?',
     hint: '',
     type: 'single',
@@ -545,26 +558,25 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q14',
+    id: 'Q15',
     text: 'What is the underlying cause of your incontinence?',
     hint: '',
     type: 'single',
     options: [
       {
         value: 'neuro',
-        label: 'Neurological condition (e.g. multiple sclerosis, spinal cord injury, brain injury, spina bifida, Parkinson\'s disease, stroke)'
+        label: "Neurological condition (e.g. multiple sclerosis, spinal cord injury, brain injury, spina bifida, Parkinson's disease, stroke)"
       },
       {
         value: 'non_neuro',
         label: 'Non-neurological condition (e.g. prostate problems, pelvic floor weakness, bladder overactivity)'
       }
     ],
-    show: (a) => a.Q13 === 'yes'
+    show: (a) => a.Q14 === 'yes'
   },
-  // ← NEW: Q15 — TAI funding question
   {
-    id: 'Q15',
-    text: 'Do you need funding support for transanal irrigation systems and/or plugs?',
+    id: 'Q16',
+    text: 'Do you only need funding support for transanal irrigation systems and/or plugs?',
     hint: '',
     type: 'single',
     options: [
@@ -573,9 +585,8 @@ const QUESTIONS = [
     ],
     show: () => true
   },
-  // ← MODIFIED: Previously Q15, now Q16
   {
-    id: 'Q16',
+    id: 'Q17',
     text: 'Do you currently hold any of the following concession cards?',
     hint: 'Select all that apply.',
     type: 'multi',
@@ -610,7 +621,6 @@ function getNextQuestionId(afterId) {
   }
   return null;
 }
-
 function getQuestionDisplayNumber(id) {
   let n = 0;
   for (const q of QUESTIONS) {
@@ -632,8 +642,7 @@ function getMultiAnswer(id) {
   return answers[id] || [];
 }
 function hasCard(cards) {
-  // cards = array of strings e.g. ['pcc','hcc']
-  const held = getMultiAnswer('Q16'); // ← MODIFIED: was Q15, now Q16
+  const held = getMultiAnswer('Q17'); // ← updated from Q16 to Q17
   return cards.some(c => held.includes(c));
 }
 // ─── Render ───────────────────────────────────────────────────────────────────
@@ -657,17 +666,17 @@ function renderQuestion(qId) {
   const container = document.getElementById('optionsContainer');
   container.innerHTML = '';
   const opts = typeof q.options === 'function' ? q.options(answers) : q.options;
-     if (q.type === 'number') {
+  if (q.type === 'number') {
     const wrapper = document.createElement('div');
-      wrapper.className = 'age-input-wrapper';
-      const input = document.createElement('input');
-      input.type        = 'number';
-      input.min         = '0';
-      input.max         = '120';
-      input.step        = '1';
-      input.placeholder = 'e.g. 45';
-      input.className   = 'age-input';
-      input.inputMode   = 'numeric';
+    wrapper.className = 'age-input-wrapper';
+    const input = document.createElement('input');
+    input.type        = 'number';
+    input.min         = '0';
+    input.max         = '120';
+    input.step        = '1';
+    input.placeholder = 'e.g. 45';
+    input.className   = 'age-input';
+    input.inputMode   = 'numeric';
     input.value       = answers[q.id] !== undefined ? answers[q.id] : '';
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = input.value === '';
@@ -683,12 +692,11 @@ function renderQuestion(qId) {
     });
     wrapper.appendChild(input);
     container.appendChild(wrapper);
-  } else if (q.type === 'single') { 
+  } else if (q.type === 'single') {
     opts.forEach(opt => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.type      = 'button';
-      // Pre-select if already answered
       if (answers[q.id] === opt.value) {
         btn.classList.add('selected');
       }
@@ -699,7 +707,6 @@ function renderQuestion(qId) {
         <span class="option-label">${opt.label}</span>
       `;
       btn.addEventListener('click', () => {
-        // Deselect all
         container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         answers[q.id] = opt.value;
@@ -708,7 +715,6 @@ function renderQuestion(qId) {
       container.appendChild(btn);
     });
   } else if (q.type === 'multi') {
-    // Initialise answer array if not present
     if (!answers[q.id]) answers[q.id] = [];
     opts.forEach(opt => {
       const btn = document.createElement('button');
@@ -728,7 +734,6 @@ function renderQuestion(qId) {
         const arr         = answers[q.id];
         const btnSelected = btn.classList.contains('selected');
         if (isNone) {
-          // Selecting "None" clears all others
           container.querySelectorAll('.option-checkbox-btn').forEach(b => {
             b.classList.remove('selected');
           });
@@ -736,11 +741,9 @@ function renderQuestion(qId) {
             btn.classList.add('selected');
             answers[q.id] = ['none'];
           } else {
-            // Clicking "None" again deselects it
             answers[q.id] = [];
           }
         } else {
-          // Deselect "None" option if it was selected
           container.querySelectorAll('.option-checkbox-btn[data-value="none"]').forEach(b => {
             b.classList.remove('selected');
           });
@@ -755,12 +758,10 @@ function renderQuestion(qId) {
             }
           }
         }
-        // Enable Next if at least one option selected
         document.getElementById('nextBtn').disabled = answers[q.id].length === 0;
       });
       container.appendChild(btn);
     });
-    // Enable Next if already has selections from back-navigation
     document.getElementById('nextBtn').disabled = answers[q.id].length === 0;
   }
   // Enable Next button for single if already answered
@@ -770,8 +771,8 @@ function renderQuestion(qId) {
   // Back button
   document.getElementById('backBtn').disabled = history.length === 0;
   // Show question card, hide results
-  document.getElementById('questionCard').style.display  = 'block';
-  document.getElementById('resultsCard').style.display   = 'none';
+  document.getElementById('questionCard').style.display      = 'block';
+  document.getElementById('resultsCard').style.display       = 'none';
   document.getElementById('progressContainer').style.display = 'block';
 }
 // ─── Navigation ───────────────────────────────────────────────────────────────
@@ -781,8 +782,8 @@ function goNext() {
   if (q.type === 'single' && !answers[q.id]) return;
   if (q.type === 'multi'  && (!answers[q.id] || answers[q.id].length === 0)) return;
   history.push(currentQId);
-  const nextId = getNextQuestionId(currentQId); // ← evaluate FIRST
-  invalidateStaleAnswers();                      // ← THEN clean up stale answers
+  const nextId = getNextQuestionId(currentQId);
+  invalidateStaleAnswers();
   if (nextId) {
     renderQuestion(nextId);
     scrollToTop();
@@ -800,10 +801,6 @@ function goBack() {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-/**
- * After changing an answer, clear stored answers for any question
- * that is no longer visible (avoids stale data affecting output logic).
- */
 function invalidateStaleAnswers() {
   QUESTIONS.forEach(q => {
     const show = typeof q.show === 'function' ? q.show(answers) : true;
@@ -824,37 +821,42 @@ function computeResults() {
   const a = answers;
   const rawAge = a.Q1;
   const age =
-    rawAge < 3                          ? 'under3' :
-    rawAge <= 4                         ? '3to4'   :
-    rawAge <= 8                         ? '5to8'   :
-    rawAge <= 15                        ? '9to15'  :
-    rawAge <= 49                        ? '16to49' :
-    rawAge <= 64                        ? '50to64' :
-                                          '65plus';
+    rawAge < 3  ? 'under3' :
+    rawAge <= 4  ? '3to4'   :
+    rawAge <= 8  ? '5to8'   :
+    rawAge <= 15 ? '9to15'  :
+    rawAge <= 49 ? '16to49' :
+    rawAge <= 64 ? '50to64' :
+                   '65plus';
   const atsi           = a.Q2;
   const residency      = a.Q3;
   const medicare       = a.Q4;
   const state          = a.Q5;
-  const veteran        = a.Q6;
-  const dvaCard        = a.Q7;
-  const mva            = a.Q8;
-  const work           = a.Q9;
-  const govWorker      = a.Q10;
-  const disability     = a.Q11;
-  const ndisIneligible = a.Q12;  // 'yes' = formally deemed ineligible; 'no' = not assessed / participant
-  const lifelong       = a.Q13;
-  const cause          = a.Q14;
-  const tai            = a.Q15; // ← NEW: TAI funding question
-  const cards          = a.Q16 || []; // ← MODIFIED: was Q15, now Q16
+  const racf           = a.Q6;  // ← NEW: residential aged care facility
+  const veteran        = a.Q7;  // ← renumbered
+  const dvaCard        = a.Q8;  // ← renumbered
+  const mva            = a.Q9;  // ← renumbered
+  const work           = a.Q10; // ← renumbered
+  const govWorker      = a.Q11; // ← renumbered
+  const disability     = a.Q12; // ← renumbered
+  const ndisIneligible = a.Q13; // ← renumbered
+  const lifelong       = a.Q14; // ← renumbered
+  const cause          = a.Q15; // ← renumbered
+  const tai            = a.Q16; // ← renumbered
+  const cards          = a.Q17 || []; // ← renumbered
   const isAuPR      = residency === 'au_pr';
   const isNZ        = residency === 'nz';
   const hasMedicare = medicare === 'yes';
-  const isUnder9 = age === 'under3' || age === '3to4' || age === '5to8';
+  const inRACF      = racf === 'yes'; // ← NEW: residential aged care flag
+  const isUnder9 =
+    age === 'under3' ||
+    age === '3to4'   ||
+    age === '5to8';
   const isCosaAge =
-    age === '3to4'  ||
-    age === '5to8'  ||
-    age === '9to15' ||
-    age === '16to49'||
+    age === '3to4'   ||
+    age === '5to8'   ||
+    age === '9to15'  ||
+    age === '16to49' ||
     age === '50to64';
   const agedCareAge       = age === '65plus' || (age === '50to64' && atsi === 'yes');
   const agedCareResidency = isAuPR || isNZ || hasMedicare;
@@ -862,8 +864,6 @@ function computeResults() {
   const hasHCC           = cards.includes('hcc');
   const hasQldSenior     = cards.includes('qld_senior');
   const hasAnyConcession = hasPCC || hasHCC || hasQldSenior;
-  // ← NEW: flag indicating the user needs TAI funding support
-  const needsTAI = tai === 'yes';
   const tier1 = [];
   const tier2 = [];
   const tier3 = [];
@@ -958,8 +958,10 @@ function computeResults() {
     myAgedCareRecommended = true;
   }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
+  // Excluded if living in a residential aged care facility (inRACF)
   if (
     !myAgedCareRecommended &&
+    !inRACF                &&
     isAuPR                 &&
     lifelong === 'yes'     &&
     age !== 'under3'       &&
@@ -973,57 +975,64 @@ function computeResults() {
     }
   }
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
-  const capsRecommended = tier2.some(s => s.id === 'CAPS');
+  // All state-based schemes are excluded if living in a residential
+  // aged care facility (inRACF)
   // VIC — SWEP
   if (
     state === 'VIC'        &&
     isAuPR                 &&
     !myAgedCareRecommended &&
+    !inRACF                && // ← excluded for RACF residents
     (age === '65plus' || lifelong === 'yes')
   ) {
     tier3.push(SCHEMES.SWEP);
   }
   // NSW — EnableNSW
   if (
-    state === 'NSW'                       &&
-    (isAuPR || isNZ || hasMedicare)       &&
-    lifelong === 'yes'                    &&
-    !myAgedCareRecommended
+    state === 'NSW'                 &&
+    (isAuPR || isNZ || hasMedicare) &&
+    lifelong === 'yes'              &&
+    !myAgedCareRecommended          &&
+    !inRACF                         // ← excluded for RACF residents
   ) {
     tier3.push(SCHEMES.ENABLE_NSW);
   }
-   // QLD — MASS
-   if (
-     state === 'QLD'        &&
-     isAuPR                 &&
-     !myAgedCareRecommended &&
-     lifelong === 'yes'     &&
-     hasAnyConcession
-   ) {
-     tier3.push(SCHEMES.MASS);
-   }
+  // QLD — MASS
+  if (
+    state === 'QLD'        &&
+    isAuPR                 &&
+    !myAgedCareRecommended &&
+    !inRACF                && // ← excluded for RACF residents
+    lifelong === 'yes'     &&
+    hasAnyConcession       &&
+    tai !== 'yes'             // ← excluded for TAI-only users
+  ) {
+    tier3.push(SCHEMES.MASS);
+  }
   // ACT — ACTES
   if (
-    state === 'ACT'          &&
-    isAuPR                   &&
-    (hasPCC || hasHCC)       &&
-    !myAgedCareRecommended   &&
-    lifelong === 'yes' 
+    state === 'ACT'        &&
+    isAuPR                 &&
+    (hasPCC || hasHCC)     &&
+    !myAgedCareRecommended &&
+    !inRACF                && // ← excluded for RACF residents
+    lifelong === 'yes'
   ) {
     tier3.push(SCHEMES.ACTES);
   }
   // WA — CPSS
   if (
-    state === 'WA'                                              &&
-    isAuPR                                                      &&
-    (age === '16to49' || age === '50to64' || age === '65plus')  &&
-    lifelong === 'yes'                                          &&
-    (hasPCC || hasHCC)                                          &&
-    !myAgedCareRecommended
+    state === 'WA'                                             &&
+    isAuPR                                                     &&
+    (age === '16to49' || age === '50to64' || age === '65plus') &&
+    lifelong === 'yes'                                         &&
+    (hasPCC || hasHCC)                                         &&
+    !myAgedCareRecommended                                     &&
+    !inRACF                                                    // ← excluded for RACF residents
   ) {
     tier3.push(SCHEMES.CPSS);
   }
-  // WA — CoSA (only if CPSS not eligible)
+  // WA — CoSA (only if CPSS not already recommended)
   if (
     state === 'WA'           &&
     isAuPR                   &&
@@ -1032,7 +1041,8 @@ function computeResults() {
     lifelong === 'yes'       &&
     isCosaAge                &&
     !(hasPCC || hasHCC)      &&
-    !myAgedCareRecommended
+    !myAgedCareRecommended   &&
+    !inRACF                  // ← excluded for RACF residents
   ) {
     tier3.push(SCHEMES.COSA);
   }
@@ -1041,6 +1051,7 @@ function computeResults() {
     state === 'NT'     &&
     isAuPR             &&
     lifelong === 'yes' &&
+    !inRACF            && // ← excluded for RACF residents
     (
       age === 'under3' ||
       age === '3to4'   ||
@@ -1053,15 +1064,16 @@ function computeResults() {
   ) {
     tier3.push(SCHEMES.TEP);
   }
-   // TAS — TasEquip
-   if (
-     state === 'TAS' &&
-     isAuPR &&
-     (hasPCC || hasHCC) &&
-     !myAgedCareRecommended
-   ) {
-     tier3.push(SCHEMES.TASEQUIP);
-   }
+  // TAS — TasEquip
+  if (
+    state === 'TAS'        &&
+    isAuPR                 &&
+    (hasPCC || hasHCC)     &&
+    !myAgedCareRecommended &&
+    !inRACF                // ← excluded for RACF residents
+  ) {
+    tier3.push(SCHEMES.TASEQUIP);
+  }
   // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
@@ -1170,7 +1182,6 @@ function buildSchemeCard(scheme) {
   body.innerHTML = bodyHTML;
   header.addEventListener('click', () => {
     const isOpen = card.classList.contains('open');
-    // Close all other open cards
     document.querySelectorAll('.scheme-card.open').forEach(c => c.classList.remove('open'));
     if (!isOpen) card.classList.add('open');
   });
