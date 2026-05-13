@@ -14,6 +14,11 @@ const SCHEMES = {
       'The TAC funds medical and like services for people injured in motor vehicle or transport accidents in Victoria.',
       'Continence aids and appliances may be covered where the need is related to the transport accident injury.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.tac.vic.gov.au'
   },
@@ -26,6 +31,11 @@ const SCHEMES = {
       'icare CTP Care provides support for people with serious injuries sustained in motor vehicle accidents in NSW.',
       'Continence aids may be covered for eligible claimants with serious injury classifications.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: 'Serious injuries only.',
     link: 'https://www.icare.nsw.gov.au'
   },
@@ -38,6 +48,11 @@ const SCHEMES = {
       'NIISQ provides lifetime treatment, care and support for people who sustain serious injuries in motor vehicle accidents in Queensland.',
       'Continence aids and supports may be funded as part of an approved care plan.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: 'Serious injuries only.',
     link: 'https://niis.qld.gov.au'
   },
@@ -50,6 +65,11 @@ const SCHEMES = {
       'The Lifetime Support Scheme provides lifetime care and support for people seriously injured in motor vehicle accidents in South Australia.',
       'Continence-related supports may be funded as part of an individualised care plan.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: 'Serious injuries only.',
     link: 'https://www.lifetimesupport.sa.gov.au'
   },
@@ -62,6 +82,11 @@ const SCHEMES = {
       'ICWA administers compulsory third party and catastrophic injury schemes in Western Australia.',
       'Continence aids may be covered for eligible claimants, particularly those with catastrophic injuries.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: 'Serious injuries only.',
     link: 'https://www.icwa.wa.gov.au'
   },
@@ -74,6 +99,11 @@ const SCHEMES = {
       'The Motor Accidents Compensation Scheme in the Northern Territory provides compensation for people injured in motor vehicle accidents.',
       'Continence aids and supports may be covered where the need arises from the accident injury.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.ntmacc.com.au'
   },
@@ -86,6 +116,11 @@ const SCHEMES = {
       'The MAIB provides compulsory third party insurance for all registered motor vehicles in Tasmania.',
       'Continence aids and supports may be funded where the need is related to a transport accident injury.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://maib.tas.gov.au'
   },
@@ -98,6 +133,7 @@ const SCHEMES = {
       'A state-based motor vehicle accident scheme is not available in the ACT.',
       'You may wish to explore other funding options or speak to your healthcare professional for further guidance.'
     ],
+    subsidy: null,
     note: null,
     link: null
   },
@@ -111,6 +147,11 @@ const SCHEMES = {
       "Comcare administers the Commonwealth workers' compensation scheme for Australian Government employees and their employers.",
       'Continence aids and appliances may be funded where the need arises from a work-related injury or illness.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.comcare.gov.au'
   },
@@ -123,6 +164,11 @@ const SCHEMES = {
       "WorkSafe Victoria's WorkCover scheme provides compensation and support for workers injured in Victoria.",
       'Continence-related aids and equipment may be covered where the need is related to a compensable work injury.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.worksafe.vic.gov.au'
   },
@@ -135,6 +181,11 @@ const SCHEMES = {
       "icare provides workers' compensation insurance and manages claims for injured workers in NSW.",
       "The Workers' Care program supports workers with the most serious injuries, and may fund continence aids as part of an approved care plan."
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.icare.nsw.gov.au'
   },
@@ -148,6 +199,11 @@ const SCHEMES = {
       'NIISQ may also provide support for workers with serious injuries sustained in work-related accidents.',
       'Continence aids may be covered under either scheme depending on injury severity and circumstances.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: null,
     link: 'https://www.worksafe.qld.gov.au'
   },
@@ -160,6 +216,11 @@ const SCHEMES = {
       "ICWA's Catastrophic Injuries Support scheme provides support for workers who sustain catastrophic injuries in Western Australia.",
       'Continence aids and supports may be covered for eligible claimants.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
+    },
     note: 'Serious/catastrophic injuries only.',
     link: 'https://www.icwa.wa.gov.au'
   },
@@ -172,6 +233,7 @@ const SCHEMES = {
       'A state-based work accident scheme for continence funding has not been identified for South Australia.',
       'You may wish to explore non-government funding options or speak to your employer or healthcare professional for further guidance.'
     ],
+    subsidy: null,
     note: null,
     link: null
   },
@@ -184,6 +246,7 @@ const SCHEMES = {
       'A state-based work accident scheme for continence funding has not been identified for Tasmania.',
       'You may wish to explore non-government funding options or speak to your employer or healthcare professional for further guidance.'
     ],
+    subsidy: null,
     note: null,
     link: null
   },
@@ -196,6 +259,7 @@ const SCHEMES = {
       'A state-based work accident scheme for continence funding has not been identified for the Northern Territory.',
       'You may wish to explore non-government funding options or speak to your employer or healthcare professional for further guidance.'
     ],
+    subsidy: null,
     note: null,
     link: null
   },
@@ -208,6 +272,7 @@ const SCHEMES = {
       'A state-based work accident scheme for continence funding has not been identified for the ACT.',
       'You may wish to explore non-government funding options or speak to your employer or healthcare professional for further guidance.'
     ],
+    subsidy: null,
     note: 'Note: ACT workers employed by the Australian Government may be covered by Comcare.',
     link: null
   },
@@ -222,6 +287,11 @@ const SCHEMES = {
       'Continence aids are available under RAP for eligible Gold Card holders, and White Card holders where incontinence is an accepted service-related condition.',
       'A referral from a medical practitioner or relevant health professional is generally required.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based. DVA covers the cost of continence aids as clinically required at no cost to the veteran.'
+    },
     note: 'Eligible if you hold a Gold Card, or a White Card with incontinence listed as an accepted condition.',
     link: 'https://www.dva.gov.au/providers/programs-services-information-for-providers/rap-overview'
   },
@@ -236,6 +306,11 @@ const SCHEMES = {
       'Continence aids and appliances can be funded under the NDIS as Consumables, where they are related to your disability.',
       'You must be an Australian citizen, permanent resident, or New Zealand citizen holding a Protected Special Category Visa, and be under 65 when you first apply.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and allocated through your individual NDIS plan under the Consumables budget, where reasonable and necessary.'
+    },
     note: null,
     link: 'https://www.ndis.gov.au'
   },
@@ -249,6 +324,11 @@ const SCHEMES = {
       'As your child is under 9, please enquire about the NDIS Early Childhood Approach, which provides early intervention supports before a formal NDIS plan may be needed.',
       'Contact the NDIS or an Early Childhood Partner in your area for more information.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and allocated through your individual NDIS plan under the Consumables budget, where reasonable and necessary.'
+    },
     note: 'Relevant for children younger than 9. An NDIS plan may not be required to access early intervention supports.',
     link: 'https://www.ndis.gov.au/understanding/families-and-carers/early-childhood-approach'
   },
@@ -263,6 +343,11 @@ const SCHEMES = {
       'Continence aids may be funded through a Support at Home program or the Commonwealth Home Support Program (CHSP), depending on your needs assessment.',
       'You will need to register with My Aged Care and undergo an assessment.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and means-tested. Support at Home provides up to $10,000–$78,000 per year depending on your assessed needs, including up to $500–$15,000 per year for assistive technology. CHSP provides up to $1,000 per year for equipment and products.'
+    },
     note: null,
     link: 'https://www.myagedcare.gov.au'
   },
@@ -279,6 +364,11 @@ const SCHEMES = {
       'Payments are made directly to the participant and can be used to purchase continence aids of their choice.',
       'A medical practitioner or continence nurse is required to complete part of the registration form to register.'
     ],
+    subsidy: {
+      amount: '$717.10',
+      period: 'per year',
+      notes: 'Amount is indexed annually. Paid as a single direct payment to the participant.'
+    },
     note: null,
     link: 'https://www.health.gov.au/our-work/continence-aids-payment-scheme-caps'
   },
@@ -293,6 +383,11 @@ const SCHEMES = {
       'Eligible applicants must be Queensland residents, hold Australian citizenship or permanent residency, and hold a relevant concession card (Pensioner Concession Card, Health Care Card, or Queensland Government Seniors Card).',
       'MASS can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Support is provided as a 6-monthly allocation of products. Examples include up to 300 intermittent catheters, 20 leg bags, or 150 urisheaths per 6 months. Transanal irrigation and plugs are not covered.'
+    },
     note: null,
     link: 'https://www.health.qld.gov.au/mass'
   },
@@ -304,9 +399,13 @@ const SCHEMES = {
     body: [
       'SWEP administers the Victorian Aids and Equipment Program, which includes a Continence Aids Program (CA) for eligible Victorian residents.',
       'Eligible applicants must be Victorian residents who are Australian citizens or permanent residents, and either have a permanent incontinence or be aged or frailed with continence needs.',
-      'SWEP can be used alongside CAPS to provide additional continence product funding.',
       'SWEP can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
+    subsidy: {
+      amount: 'Up to $1,200',
+      period: 'per year',
+      notes: 'Capped at $1,200 per year. Can be used alongside CAPS.'
+    },
     note: null,
     link: 'https://swep.bhs.org.au/'
   },
@@ -321,6 +420,11 @@ const SCHEMES = {
       'Applicants must be enrolled in Medicare.',
       'EnableNSW can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Support is provided as a means-tested annual allocation of products. Examples include up to 600 standard intermittent catheters, 270 ready-to-use intermittent catheters, 36 leg bags, 270 urisheaths, or 1 transanal irrigation kit with 150 catheters per year.'
+    },
     note: 'CAPS should be accessed first where eligible. EnableNSW provides supplementary funding.',
     link: 'https://www.enable.health.nsw.gov.au/services/continence#:~:text=EnableNSW%20provides%20assistance%20for%20consumers,Continence%20AidsPayment%20Scheme%20(CAPS).'
   },
@@ -334,6 +438,11 @@ const SCHEMES = {
       'Eligible applicants must be ACT residents, Australian citizens or permanent residents, and hold a Pensioner Concession Card or Health Care Card.',
       'ACTES can be used alongside the Continence Aids Payment Scheme (CAPS).'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined through individual assessment.'
+    },
     note: null,
     link: 'https://www.canberrahealthservices.act.gov.au/services-and-clinics/services/act-equipment-scheme-actes'
   },
@@ -348,6 +457,11 @@ const SCHEMES = {
       'CPSS can be used alongside the Continence Aids Payment Scheme (CAPS).',
       'A referral from a medical practitioner or continence nurse is required.'
     ],
+    subsidy: {
+      amount: 'Up to $490',
+      period: 'per year',
+      notes: 'Capped at $490 per year. Can be used alongside CAPS.'
+    },
     note: 'Can be used alongside CAPS.',
     link: 'https://www.wa.gov.au/service/health-care/public-health-services/apply-the-continence-product-subsidy-scheme-cpss'
   },
@@ -362,6 +476,11 @@ const SCHEMES = {
       'Applicants must be WA residents, Australian citizens or permanent residents, have a permanent disability causing incontinence, and have been determined ineligible for the NDIS.',
       'CoSA can supplement the Continence Aids Payment Scheme (CAPS).'
     ],
+    subsidy: {
+      amount: 'Up to $490',
+      period: 'per year',
+      notes: 'Capped at $490 per year via the CPSS. Can be used alongside CAPS.'
+    },
     note: 'CoSA provides access to funding via the Continence Product Subsidy Scheme (CPSS).',
     link: 'https://www.wa.gov.au/organisation/department-of-communities/continuity-of-support-arrangements-local-coordination'
   },
@@ -376,6 +495,11 @@ const SCHEMES = {
       'TEP can supplement the Continence Aids Payment Scheme (CAPS).',
       'A referral from a medical practitioner or relevant health professional is required.'
     ],
+    subsidy: {
+      amount: 'Up to $1,500',
+      period: 'per year',
+      notes: 'Capped at $1,500 per year. Can be used alongside CAPS.'
+    },
     note: null,
     link: 'https://health.nt.gov.au/professionals/disability-equipment-program/territory-equipment-program'
   },
@@ -390,6 +514,11 @@ const SCHEMES = {
       'TasEquip can supplement the Continence Aids Payment Scheme (CAPS).',
       'The equipment must be prescribed by the authorised therapist/prescriber.'
     ],
+    subsidy: {
+      amount: null,
+      period: null,
+      notes: 'Funding is needs-based and determined through individual assessment.'
+    },
     note: null,
     link: 'https://www.concessions.tas.gov.au/concessions/health/community_equipment_scheme_ces'
   }
@@ -1168,10 +1297,29 @@ function buildSchemeCard(scheme) {
   `;
   const body = document.createElement('div');
   body.className = 'scheme-card-body';
+  // Body paragraphs
   let bodyHTML = scheme.body.map(p => `<p>${p}</p>`).join('');
+  // ── Level of Funding or Subsidy block ──────────────────────
+  if (scheme.subsidy) {
+    let subsidyHTML = `<div class="scheme-subsidy-block">
+      <p class="scheme-subsidy-label">&#128181; Level of funding or support</p>`;
+    if (scheme.subsidy.amount) {
+      subsidyHTML += `<p class="scheme-subsidy-amount">
+        ${scheme.subsidy.amount}
+        ${scheme.subsidy.period ? `<span class="scheme-subsidy-period">${scheme.subsidy.period}</span>` : ''}
+      </p>`;
+    }
+    if (scheme.subsidy.notes) {
+      subsidyHTML += `<p class="scheme-subsidy-notes">${scheme.subsidy.notes}</p>`;
+    }
+    subsidyHTML += `</div>`;
+    bodyHTML += subsidyHTML;
+  }
+  // Note
   if (scheme.note) {
     bodyHTML += `<div class="scheme-note">&#128204; ${scheme.note}</div>`;
   }
+  // Link
   if (scheme.link) {
     bodyHTML += `
       <a class="scheme-link" href="${scheme.link}" target="_blank" rel="noopener noreferrer">
