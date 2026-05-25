@@ -787,7 +787,7 @@ function renderQuestion(qId) {
   document.getElementById('progressPct').textContent   = `${pct}%`;
   document.getElementById('progressBar').style.width   = `${pct}%`;
   // Question metadata
-  document.getElementById('questionNumber').textContent = q.id;
+  document.getElementById('questionNumber').style.display = 'none';
   document.getElementById('questionText').textContent   = q.text;
   document.getElementById('questionHint').textContent   = q.hint || '';
   document.getElementById('questionHint').style.display = q.hint ? 'block' : 'none';
