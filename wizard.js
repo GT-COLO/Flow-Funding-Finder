@@ -705,14 +705,14 @@ const QUESTIONS = [
   },
   {
     id: 'Q16',
-    text: 'Do you only need funding support for transanal irrigation systems and/or plugs?',
+    text: 'Do you ONLY need funding support for transanal irrigation systems and/or plugs?',
     hint: '',
     type: 'single',
     options: [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: () => true
+    show: (a) => a.Q5 === 'QLD'
   },
   {
     id: 'Q17',
