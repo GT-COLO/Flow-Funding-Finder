@@ -11,7 +11,7 @@ const SCHEMES = {
     tier: 'tier-stop',
     badge: 'MVA Scheme — VIC',
     body: [
-      'The TAC funds medical and like services for people injured in motor vehicle or transport accidents in Victoria.',
+      'The TAC funds medical and like services for people injured in motor vehicle or transport accidents in Victoria, or in interstate accidents that involved a Victorian registered vehicle.',
       'Continence aids and appliances may be covered where the need is related to the transport accident injury.'
     ],
     subsidy: {
@@ -24,19 +24,19 @@ const SCHEMES = {
   },
   ICARE_MVA: {
     id: 'ICARE_MVA',
-    name: 'Insurance and Care NSW (icare) — CTP Care',
+    name: 'Insurance and Care NSW (icare) — CTP Care & Lifetime Care',
     tier: 'tier-stop',
     badge: 'MVA Scheme — NSW',
     body: [
-      'icare CTP Care provides support for people with serious injuries sustained in motor vehicle accidents in NSW.',
-      'Continence aids may be covered for eligible claimants with serious injury classifications.'
+      'icare CTP Care provides support for people with long-term or serious injuries sustained in motor vehicle accidents in NSW.',
+      'Continence aids may be covered for eligible claimants with long-term or serious injury classifications.'
     ],
     subsidy: {
       amount: null,
       period: null,
       notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
     },
-    note: 'Serious injuries only.',
+    note: 'Long-term or serious injuries only.',
     link: 'https://www.icare.nsw.gov.au'
   },
   NIISQ_MVA: {
@@ -75,11 +75,11 @@ const SCHEMES = {
   },
   ICWA_MVA: {
     id: 'ICWA_MVA',
-    name: 'Insurance Commission of WA (ICWA) — CTP / Catastrophic Injuries Support (CIS) Scheme',
+    name: 'Insurance Commission of WA (ICWA) — CTP or Catastrophic Injuries Support (CIS) Scheme',
     tier: 'tier-stop',
     badge: 'MVA Scheme — WA',
     body: [
-      'ICWA administers compulsory third party and catastrophic injury schemes in Western Australia.',
+      'ICWA administers compulsory third party and catastrophic injury schemes in Western Australia (WA), for those sustained injury in a motor vehicle accident involving a WA-registered vehicle, or serious injuries in a motor vehicle accident in WA.',
       'Continence aids may be covered for eligible claimants, particularly those with catastrophic injuries.'
     ],
     subsidy: {
@@ -87,7 +87,7 @@ const SCHEMES = {
       period: null,
       notes: 'Funding is needs-based and determined individually based on your injury and care requirements.'
     },
-    note: 'Serious injuries only.',
+    note: null,
     link: 'https://www.icwa.wa.gov.au'
   },
   MAC: {
@@ -96,7 +96,7 @@ const SCHEMES = {
     tier: 'tier-stop',
     badge: 'MVA Scheme — NT',
     body: [
-      'The Motor Accidents Compensation Scheme in the Northern Territory provides compensation for people injured in motor vehicle accidents.',
+      'The Motor Accidents Compensation Scheme in the Northern Territory (NT) provides compensation for people injured in motor vehicle accidents involving a NT-registered vehicle.',
       'Continence aids and supports may be covered where the need arises from the accident injury.'
     ],
     subsidy: {
@@ -131,7 +131,7 @@ const SCHEMES = {
     badge: 'MVA Scheme — ACT',
     body: [
       'A state-based motor vehicle accident scheme is not available in the ACT.',
-      'You may wish to explore other funding options or speak to your healthcare professional for further guidance.'
+      'You may wish to explore non-government funding options or speak to your healthcare professional for further guidance.'
     ],
     subsidy: null,
     note: null,
@@ -302,7 +302,7 @@ const SCHEMES = {
     tier: 'tier-2',
     badge: 'Commonwealth Scheme',
     body: [
-      'The NDIS provides funding for supports and services to Australians under 65 with a permanent disability or impairment leading to substantial reduced functional capacity.',
+      'The NDIS provides funding for supports and services to people with a permanent disability or impairment leading to substantial reduced functional capacity.',
       'Continence aids and appliances can be funded under the NDIS as Consumables, where they are related to your disability.',
       'You must be an Australian citizen, permanent resident, or New Zealand citizen holding a Protected Special Category Visa, and be under 65 when you first apply.'
     ],
@@ -327,7 +327,7 @@ const SCHEMES = {
     subsidy: {
       amount: null,
       period: null,
-      notes: 'Funding is needs-based and allocated through your individual NDIS plan under the Consumables budget, where reasonable and necessary.'
+      notes: 'Funding is needs-based and allocated throug the NDIS plan under the Consumables budget, where reasonable and necessary.'
     },
     note: 'Relevant for children younger than 9. An NDIS plan may not be required to access early intervention supports.',
     link: 'https://www.ndis.gov.au/understanding/families-and-carers/early-childhood-approach'
