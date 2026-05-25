@@ -586,7 +586,7 @@ const QUESTIONS = [
   // ── NEW Q6 ──────────────────────────────────────────────────
   {
     id: 'Q6',
-    text: 'Do you currently live in a residential aged care facility?',
+    text: 'Do you live in a residential aged care facility?',
     hint: '',
     type: 'single',
     options: [
@@ -730,7 +730,12 @@ const QUESTIONS = [
       opts.push({ value: 'none', label: 'None of the above' });
       return opts;
     },
-    show: () => true
+    show: (a) =>
+     a.Q14 === 'yes' &&
+     a.Q15 === 'non_neuro' &&
+     a.Q9 !== 'yes' &&
+     a.Q10 !== 'yes' &&
+     !(a.Q7 === 'yes' && (a.Q8 === 'gold' || a.Q8 === 'white_inc'))
   }
 ];
 // ─── State ────────────────────────────────────────────────────────────────────
