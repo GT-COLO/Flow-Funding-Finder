@@ -586,7 +586,7 @@ const QUESTIONS = [
   // ── NEW Q6 ──────────────────────────────────────────────────
   {
     id: 'Q6',
-    text: 'Do you live in a residential aged care facility?',
+    text: 'Do you live in a residential aged care or an aged care home?',
     hint: '',
     type: 'single',
     options: [
@@ -609,7 +609,7 @@ const QUESTIONS = [
   },
   {
     id: 'Q8',
-    text: 'Which DVA card do you hold?',
+    text: "Which Department of Veterans' Affairs card do you hold?",
     hint: '',
     type: 'single',
     options: [
