@@ -666,7 +666,7 @@ const QUESTIONS = [
   },
   {
     id: 'Q13',
-    text: 'Have you been formally assessed and deemed ineligible for the National Disability Insurance Scheme (NDIS)?',
+    text: 'Have you been formally assessed and deemed INELIGIBLE for the National Disability Insurance Scheme (NDIS)?',
     hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
     type: 'single',
     options: [
