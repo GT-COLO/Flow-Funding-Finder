@@ -374,6 +374,10 @@ body {
   transform: none;
 }
 /* ── Landing Page ── */
+#landingCard {
+  max-width: 680px;
+  margin: 0 auto;
+}
 #landingCard .card-body {
   padding: 2.5rem;
 }
@@ -382,13 +386,12 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0;
 }
 .landing-icon {
   font-size: 2.5rem;
   line-height: 1;
   margin-bottom: 0.15rem;
-  margin-left: 0.05rem;
 }
 .landing-title {
   font-size: 1.6rem;
@@ -396,11 +399,6 @@ body {
   color: #1B3A4B;
   line-height: 1.3;
   margin-top: 0.15rem;
-  padding-right: 1rem;
-  max-width: 100%;
-}
-.landing-content p {
-  max-width: 58ch;
 }
 .landing-intro {
   font-size: 1rem;
@@ -427,7 +425,6 @@ body {
   color: #1B3A4B;
   line-height: 1.65;
   width: 100%;
-  max-width: 58ch;
   margin-top: 0.25rem;
 }
 .landing-note span:first-child {
@@ -780,6 +777,9 @@ body {
 @media (max-width: 700px) {
   #resultsContent {
     grid-template-columns: 1fr;
+  }
+  #landingCard {
+    max-width: 100%;
   }
   .landing-title {
     font-size: 1.3rem;
