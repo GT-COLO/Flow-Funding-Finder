@@ -1396,8 +1396,7 @@ function initLandingPage() {
   const landingCard = document.getElementById('landingCard');
   landingCard.innerHTML = `
     <div class="landing-content">
-      <div class="landing-icon">&#128203;</div>
-      <h1 class="landing-title">Continence Funding Wizard</h1>
+      <h1 class="landing-title">Flow Funding Finder</h1>
       <p class="landing-intro">
         Welcome! This tool is designed to help people living with bladder or bowel problems
         find the most suitable <strong>government funding schemes</strong> for continence
