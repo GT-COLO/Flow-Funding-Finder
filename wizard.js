@@ -684,17 +684,17 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q14',
-    text: 'Which of the following best describe your circumstance?',
-    hint: '',
-    type: 'single',
-    options: [
-      { value: 'new-NDIS',  label: 'I have not been assessed whether I am eligible for NDIS' },
-      { value: 'NDIS',  label: 'I am an NDIS participant' },
-      { value: 'non-NDIS', label: 'I have been formally assessed and deemed ineligible for the NDIS' }
-    ],
-    show: (a) => a.Q13 === 'yes'
-  },
+     id: 'Q14',
+     text: 'Which of the following best describes your National Disability Insurance Scheme (NDIS) status?',
+     hint: '',
+     type: 'single',
+     options: [
+       { value: 'new-NDIS', label: 'I have not yet been assessed for NDIS eligibility' },
+       { value: 'NDIS', label: 'I am currently an NDIS participant' },
+       { value: 'non-NDIS', label: 'I have been assessed and found ineligible for NDIS' }
+     ],
+     show: (a) => a.Q13 === 'yes'
+   }
   {
     id: 'Q15',
     text: 'Is your incontinence likely to be long-term or lifelong?',
@@ -1012,7 +1012,7 @@ function computeResults() {
   const work           = a.Q11;
   const govWorker      = a.Q12;
   const disability     = a.Q13;
-  const ndisIneligible = a.Q14;
+  const ndisStatus  = a.Q14;
   const lifelong       = a.Q15;
   const cause          = a.Q16;
   const cards          = a.Q17 || [];
@@ -1116,7 +1116,7 @@ function computeResults() {
   // ── TIER 2: NDIS ─────────────────────────────────────────────
   if (
     disability === 'yes'     &&
-    ndisIneligible !== 'yes' &&
+    ndisStatus !== 'non-NDIS' &&
     (isAuPR || isNZ)         &&
     age !== '65plus'
   ) {
@@ -1212,7 +1212,7 @@ function computeResults() {
     state === 'WA'           &&
     isAuPR                   &&
     disability === 'yes'     &&
-    ndisIneligible === 'yes' &&
+    ndisStatus === 'non-NDIS' &&
     lifelong === 'yes'       &&
     isCosaAge                &&
     !(hasPCC || hasHCC)      &&
@@ -1334,12 +1334,12 @@ function showResults() {
     content.appendChild(col);
   }
   // ── If only one column exists, make it full width ────────────
-  const columns = content.querySelectorAll('.results-column');
-  if (columns.length === 1) {
-    content.style.gridTemplateColumns = '1fr';
-  } else {
-    content.style.gridTemplateColumns = '';
-  }
+   const columns = content.querySelectorAll('.results-column');
+   if (columns.length === 1) {
+     content.classList.add('single-column');
+   } else {
+     content.classList.remove('single-column');
+   }
   scrollToTop();
 }
 function buildSchemeCard(scheme) {
