@@ -694,7 +694,7 @@ const QUESTIONS = [
        { value: 'non-NDIS', label: 'I have been assessed and found ineligible for NDIS' }
      ],
      show: (a) => a.Q13 === 'yes'
-   }
+   },
   {
     id: 'Q15',
     text: 'Is your incontinence likely to be long-term or lifelong?',
