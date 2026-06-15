@@ -327,7 +327,7 @@ const SCHEMES = {
     subsidy: {
       amount: null,
       period: null,
-      notes: 'Funding is needs-based and allocated throug the NDIS plan under the Consumables budget, where reasonable and necessary.'
+      notes: 'Funding is needs-based and allocated through the NDIS plan under the Consumables budget, where reasonable and necessary.'
     },
     note: 'Relevant for children younger than 9. An NDIS plan may not be required to access early intervention supports.',
     link: 'https://www.ndis.gov.au/understanding/families-and-carers/early-childhood-approach'
@@ -525,15 +525,35 @@ const SCHEMES = {
 };
 // ─── Questions Definition ─────────────────────────────────────────────────────
 const QUESTIONS = [
+  // ── NEW Q1 — Product types ──────────────────────────────────
   {
     id: 'Q1',
+    text: 'Which continence support product(s) will you likely need?',
+    hint: 'Select all that apply.',
+    type: 'multi',
+    options: [
+      { value: 'intermittent_cath',  label: 'Intermittent catheters' },
+      { value: 'indwelling_cath',    label: 'Suprapubic or indwelling catheters' },
+      { value: 'collecting_devices', label: 'Collecting devices (e.g. leg/overnight bags)' },
+      { value: 'bowel_irrigation',   label: 'Bowel irrigation systems' },
+      { value: 'anal_plugs',         label: 'Anal plugs' },
+      { value: 'pads',               label: 'Pads' },
+      { value: 'unsure',             label: 'Unsure' }
+    ],
+    // 'unsure' acts as a standalone exclusive option
+    unsureValue: 'unsure',
+    show: () => true
+  },
+  // ── Age ─────────────────────────────────────────────────────
+  {
+    id: 'Q2',
     text: 'How old are you?',
     hint: 'Please enter your age in whole years.',
     type: 'number',
     show: () => true
   },
   {
-    id: 'Q2',
+    id: 'Q3',
     text: 'Are you an Aboriginal or Torres Strait Islander person, or are you experiencing (or at risk of) homelessness?',
     hint: '',
     type: 'single',
@@ -541,10 +561,10 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: (a) => a.Q1 >= 50 && a.Q1 <= 64
+    show: (a) => a.Q2 >= 50 && a.Q2 <= 64
   },
   {
-    id: 'Q3',
+    id: 'Q4',
     text: 'Which of the following best describes your residency status?',
     hint: '',
     type: 'single',
@@ -556,7 +576,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q4',
+    id: 'Q5',
     text: 'Are you enrolled in Medicare?',
     hint: '',
     type: 'single',
@@ -564,10 +584,10 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: (a) => a.Q3 === 'neither'
+    show: (a) => a.Q4 === 'neither'
   },
   {
-    id: 'Q5',
+    id: 'Q6',
     text: 'Which state or territory are you permanently residing in?',
     hint: '',
     type: 'single',
@@ -583,21 +603,20 @@ const QUESTIONS = [
     ],
     show: () => true
   },
-  // ── NEW Q6 ──────────────────────────────────────────────────
+  // ── Q7: RACF — only shown if age >= 50 ─────────────────────
   {
-    id: 'Q6',
-    text: 'Do you live in a residential aged care or an aged care home?',
+    id: 'Q7',
+    text: 'Do you live in a residential aged care home?',
     hint: '',
     type: 'single',
     options: [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: () => true
+    show: (a) => a.Q2 >= 50
   },
-  // ── Renumbered from Q6 onwards ──────────────────────────────
   {
-    id: 'Q7',
+    id: 'Q8',
     text: 'Are you a veteran, war widow/widower, or dependent of a veteran?',
     hint: '',
     type: 'single',
@@ -608,7 +627,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q8',
+    id: 'Q9',
     text: "Which Department of Veterans' Affairs card do you hold?",
     hint: '',
     type: 'single',
@@ -618,10 +637,10 @@ const QUESTIONS = [
       { value: 'white_no_inc', label: 'White Card without incontinence as an accepted condition' },
       { value: 'neither',      label: 'Neither' }
     ],
-    show: (a) => a.Q7 === 'yes'
+    show: (a) => a.Q8 === 'yes'
   },
   {
-    id: 'Q9',
+    id: 'Q10',
     text: 'Was your incontinence caused by a motor vehicle accident?',
     hint: '',
     type: 'single',
@@ -632,7 +651,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q10',
+    id: 'Q11',
     text: 'Was your incontinence caused by a work-related injury?',
     hint: '',
     type: 'single',
@@ -643,7 +662,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q11',
+    id: 'Q12',
     text: 'Do you work for an Australian Government agency or statutory authority?',
     hint: '',
     type: 'single',
@@ -651,10 +670,10 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes' },
       { value: 'no',  label: 'No' }
     ],
-    show: (a) => a.Q10 === 'yes'
+    show: (a) => a.Q11 === 'yes'
   },
   {
-    id: 'Q12',
+    id: 'Q13',
     text: 'Do you have a permanent disability that causes your incontinence?',
     hint: 'Disability defined as any intellectual, cognitive, neurological, sensory, or physical impairment',
     type: 'single',
@@ -665,7 +684,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q13',
+    id: 'Q14',
     text: 'Have you been formally assessed and deemed INELIGIBLE for the National Disability Insurance Scheme (NDIS)?',
     hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
     type: 'single',
@@ -673,10 +692,10 @@ const QUESTIONS = [
       { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
       { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
     ],
-    show: (a) => a.Q12 === 'yes'
+    show: (a) => a.Q13 === 'yes'
   },
   {
-    id: 'Q14',
+    id: 'Q15',
     text: 'Is your incontinence likely to be long-term or lifelong?',
     hint: '',
     type: 'single',
@@ -687,7 +706,7 @@ const QUESTIONS = [
     show: () => true
   },
   {
-    id: 'Q15',
+    id: 'Q16',
     text: 'What is the underlying cause of your incontinence?',
     hint: '',
     type: 'single',
@@ -701,18 +720,7 @@ const QUESTIONS = [
         label: 'Non-neurological condition (e.g. prostate problems, pelvic floor weakness, bladder overactivity)'
       }
     ],
-    show: (a) => a.Q14 === 'yes'
-  },
-  {
-    id: 'Q16',
-    text: 'Do you ONLY need funding support for transanal irrigation systems and/or plugs?',
-    hint: '',
-    type: 'single',
-    options: [
-      { value: 'yes', label: 'Yes' },
-      { value: 'no',  label: 'No' }
-    ],
-    show: (a) => a.Q5 === 'QLD'
+    show: (a) => a.Q15 === 'yes'
   },
   {
     id: 'Q17',
@@ -724,24 +732,25 @@ const QUESTIONS = [
         { value: 'pcc', label: 'Pensioner Concession Card' },
         { value: 'hcc', label: 'Health Care Card' }
       ];
-      if (a.Q5 === 'QLD') {
+      if (a.Q6 === 'QLD') {
         opts.push({ value: 'qld_senior', label: 'Queensland Government Seniors Card' });
       }
       opts.push({ value: 'none', label: 'None of the above' });
       return opts;
     },
     show: (a) =>
-     a.Q14 === 'yes' &&
-     a.Q15 === 'non_neuro' &&
-     a.Q9 !== 'yes' &&
-     a.Q10 !== 'yes' &&
-     !(a.Q7 === 'yes' && (a.Q8 === 'gold' || a.Q8 === 'white_inc'))
+      a.Q15 === 'yes' &&
+      a.Q16 === 'non_neuro' &&
+      a.Q10 !== 'yes' &&
+      a.Q11 !== 'yes' &&
+      !(a.Q8 === 'yes' && (a.Q9 === 'gold' || a.Q9 === 'white_inc'))
   }
 ];
 // ─── State ────────────────────────────────────────────────────────────────────
 let answers    = {};
 let history    = [];
 let currentQId = null;
+let onLandingPage = true;
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function getQuestion(id) {
   return QUESTIONS.find(q => q.id === id);
@@ -771,13 +780,27 @@ function getTotalVisibleQuestions() {
     q => (typeof q.show === 'function' ? q.show(answers) : true)
   ).length;
 }
-// Multi-select helper: returns array of selected values
 function getMultiAnswer(id) {
   return answers[id] || [];
 }
 function hasCard(cards) {
-  const held = getMultiAnswer('Q17'); // ← updated from Q16 to Q17
+  const held = getMultiAnswer('Q17');
   return cards.some(c => held.includes(c));
+}
+// ─── Landing Page ─────────────────────────────────────────────────────────────
+function showLandingPage() {
+  onLandingPage = true;
+  document.getElementById('landingCard').style.display      = 'block';
+  document.getElementById('questionCard').style.display     = 'none';
+  document.getElementById('resultsCard').style.display      = 'none';
+  document.getElementById('progressContainer').style.display = 'none';
+}
+function startWizard() {
+  onLandingPage = false;
+  document.getElementById('landingCard').style.display      = 'none';
+  document.getElementById('progressContainer').style.display = 'block';
+  renderQuestion('Q1');
+  scrollToTop();
 }
 // ─── Render ───────────────────────────────────────────────────────────────────
 function renderQuestion(qId) {
@@ -793,9 +816,9 @@ function renderQuestion(qId) {
   document.getElementById('progressBar').style.width   = `${pct}%`;
   // Question metadata
   document.getElementById('questionNumber').style.display = 'none';
-  document.getElementById('questionText').textContent   = q.text;
-  document.getElementById('questionHint').textContent   = q.hint || '';
-  document.getElementById('questionHint').style.display = q.hint ? 'block' : 'none';
+  document.getElementById('questionText').textContent     = q.text;
+  document.getElementById('questionHint').textContent     = q.hint || '';
+  document.getElementById('questionHint').style.display   = q.hint ? 'block' : 'none';
   // Build options
   const container = document.getElementById('optionsContainer');
   container.innerHTML = '';
@@ -850,11 +873,12 @@ function renderQuestion(qId) {
     });
   } else if (q.type === 'multi') {
     if (!answers[q.id]) answers[q.id] = [];
+    const unsureVal = q.unsureValue || 'none';
     opts.forEach(opt => {
       const btn = document.createElement('button');
-      btn.className = 'option-checkbox-btn';
-      btn.type      = 'button';
-      btn.dataset.value = opt.value;
+      btn.className         = 'option-checkbox-btn';
+      btn.type              = 'button';
+      btn.dataset.value     = opt.value;
       const alreadySelected = answers[q.id].includes(opt.value);
       if (alreadySelected) btn.classList.add('selected');
       btn.innerHTML = `
@@ -864,24 +888,26 @@ function renderQuestion(qId) {
         <span class="option-label">${opt.label}</span>
       `;
       btn.addEventListener('click', () => {
-        const isNone      = opt.value === 'none';
+        const isExclusive = opt.value === unsureVal;
         const arr         = answers[q.id];
         const btnSelected = btn.classList.contains('selected');
-        if (isNone) {
+        if (isExclusive) {
+          // Deselect everything else and toggle this
           container.querySelectorAll('.option-checkbox-btn').forEach(b => {
             b.classList.remove('selected');
           });
           if (!btnSelected) {
             btn.classList.add('selected');
-            answers[q.id] = ['none'];
+            answers[q.id] = [unsureVal];
           } else {
             answers[q.id] = [];
           }
         } else {
-          container.querySelectorAll('.option-checkbox-btn[data-value="none"]').forEach(b => {
+          // Deselect the exclusive/unsure option if present
+          container.querySelectorAll(`.option-checkbox-btn[data-value="${unsureVal}"]`).forEach(b => {
             b.classList.remove('selected');
           });
-          answers[q.id] = arr.filter(v => v !== 'none');
+          answers[q.id] = arr.filter(v => v !== unsureVal);
           if (btnSelected) {
             btn.classList.remove('selected');
             answers[q.id] = answers[q.id].filter(v => v !== opt.value);
@@ -904,9 +930,10 @@ function renderQuestion(qId) {
   }
   // Back button
   document.getElementById('backBtn').disabled = history.length === 0;
-  // Show question card, hide results
-  document.getElementById('questionCard').style.display      = 'block';
-  document.getElementById('resultsCard').style.display       = 'none';
+  // Show question card, hide others
+  document.getElementById('landingCard').style.display      = 'none';
+  document.getElementById('questionCard').style.display     = 'block';
+  document.getElementById('resultsCard').style.display      = 'none';
   document.getElementById('progressContainer').style.display = 'block';
 }
 // ─── Navigation ───────────────────────────────────────────────────────────────
@@ -926,7 +953,12 @@ function goNext() {
   }
 }
 function goBack() {
-  if (history.length === 0) return;
+  if (history.length === 0) {
+    // Go back to landing page from first question
+    showLandingPage();
+    scrollToTop();
+    return;
+  }
   const prevId = history.pop();
   currentQId   = prevId;
   renderQuestion(prevId);
@@ -944,44 +976,49 @@ function invalidateStaleAnswers() {
   });
 }
 function restartWizard() {
-  answers    = {};
-  history    = [];
-  currentQId = null;
-  renderQuestion('Q1');
+  answers       = {};
+  history       = [];
+  currentQId    = null;
+  onLandingPage = true;
+  showLandingPage();
   scrollToTop();
 }
 // ─── Output Logic ─────────────────────────────────────────────────────────────
 function computeResults() {
   const a = answers;
-  const rawAge = a.Q1;
+  // ── Product types selected (Q1) ─────────────────────────────
+  const products = a.Q1 || [];
+  const onlyBowelIrrigation =
+    products.length === 1 && products[0] === 'bowel_irrigation';
+  const rawAge = a.Q2;
   const age =
-    rawAge < 3  ? 'under3' :
+    rawAge < 3   ? 'under3' :
     rawAge <= 4  ? '3to4'   :
     rawAge <= 8  ? '5to8'   :
     rawAge <= 15 ? '9to15'  :
     rawAge <= 49 ? '16to49' :
     rawAge <= 64 ? '50to64' :
                    '65plus';
-  const atsi           = a.Q2;
-  const residency      = a.Q3;
-  const medicare       = a.Q4;
-  const state          = a.Q5;
-  const racf           = a.Q6;  // ← NEW: residential aged care facility
-  const veteran        = a.Q7;  // ← renumbered
-  const dvaCard        = a.Q8;  // ← renumbered
-  const mva            = a.Q9;  // ← renumbered
-  const work           = a.Q10; // ← renumbered
-  const govWorker      = a.Q11; // ← renumbered
-  const disability     = a.Q12; // ← renumbered
-  const ndisIneligible = a.Q13; // ← renumbered
-  const lifelong       = a.Q14; // ← renumbered
-  const cause          = a.Q15; // ← renumbered
-  const tai            = a.Q16; // ← renumbered
-  const cards          = a.Q17 || []; // ← renumbered
+  const atsi           = a.Q3;
+  const residency      = a.Q4;
+  const medicare       = a.Q5;
+  const state          = a.Q6;
+  // Q7 (RACF) is only asked if age >= 50; otherwise treat as 'no'
+  const racf           = rawAge >= 50 ? a.Q7 : 'no';
+  const veteran        = a.Q8;
+  const dvaCard        = a.Q9;
+  const mva            = a.Q10;
+  const work           = a.Q11;
+  const govWorker      = a.Q12;
+  const disability     = a.Q13;
+  const ndisIneligible = a.Q14;
+  const lifelong       = a.Q15;
+  const cause          = a.Q16;
+  const cards          = a.Q17 || [];
   const isAuPR      = residency === 'au_pr';
   const isNZ        = residency === 'nz';
   const hasMedicare = medicare === 'yes';
-  const inRACF      = racf === 'yes'; // ← NEW: residential aged care flag
+  const inRACF      = racf === 'yes';
   const isUnder9 =
     age === 'under3' ||
     age === '3to4'   ||
@@ -1026,24 +1063,27 @@ function computeResults() {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
   }
   // ── TIER 1: MVA ─────────────────────────────────────────────
+  // Note: if state has no MVA scheme (ACT), fall through to lower tiers
   let mvaHasScheme = false;
   if (mva === 'yes') {
     switch (state) {
-      case 'VIC': tier1.push(SCHEMES.TAC);         mvaHasScheme = true; break;
-      case 'NSW': tier1.push(SCHEMES.ICARE_MVA);   mvaHasScheme = true; break;
-      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA);   mvaHasScheme = true; break;
-      case 'SA':  tier1.push(SCHEMES.LSA);         mvaHasScheme = true; break;
-      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);    mvaHasScheme = true; break;
-      case 'NT':  tier1.push(SCHEMES.MAC);         mvaHasScheme = true; break;
-      case 'TAS': tier1.push(SCHEMES.MAIB);        mvaHasScheme = true; break;
-      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL);                      break;
+      case 'VIC': tier1.push(SCHEMES.TAC);       mvaHasScheme = true; break;
+      case 'NSW': tier1.push(SCHEMES.ICARE_MVA); mvaHasScheme = true; break;
+      case 'QLD': tier1.push(SCHEMES.NIISQ_MVA); mvaHasScheme = true; break;
+      case 'SA':  tier1.push(SCHEMES.LSA);       mvaHasScheme = true; break;
+      case 'WA':  tier1.push(SCHEMES.ICWA_MVA);  mvaHasScheme = true; break;
+      case 'NT':  tier1.push(SCHEMES.MAC);       mvaHasScheme = true; break;
+      case 'TAS': tier1.push(SCHEMES.MAIB);      mvaHasScheme = true; break;
+      case 'ACT': tier1.push(SCHEMES.ACT_MVA_NIL); break; // no scheme — fall through
       default: break;
     }
     if (mvaHasScheme) {
       return { noSchemes: false, tier1, tier2: [], tier3: [] };
     }
+    // ACT MVA or unmatched state — fall through to lower tiers below
   }
   // ── TIER 1: WORK ACCIDENT ────────────────────────────────────
+  // Note: if state has no work scheme, fall through to lower tiers
   let workHasScheme = false;
   if (work === 'yes') {
     if (govWorker === 'yes') {
@@ -1055,16 +1095,17 @@ function computeResults() {
         case 'NSW': tier1.push(SCHEMES.ICARE_WORK);   workHasScheme = true; break;
         case 'QLD': tier1.push(SCHEMES.WORKSAFE_QLD); workHasScheme = true; break;
         case 'WA':  tier1.push(SCHEMES.ICWA_WORK);    workHasScheme = true; break;
-        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);                        break;
-        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL);                       break;
-        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);                        break;
-        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL);                       break;
+        case 'SA':  tier1.push(SCHEMES.SA_WORK_NIL);  break; // no scheme — fall through
+        case 'TAS': tier1.push(SCHEMES.TAS_WORK_NIL); break; // no scheme — fall through
+        case 'NT':  tier1.push(SCHEMES.NT_WORK_NIL);  break; // no scheme — fall through
+        case 'ACT': tier1.push(SCHEMES.ACT_WORK_NIL); break; // no scheme — fall through
         default: break;
       }
     }
     if (workHasScheme) {
       return { noSchemes: false, tier1, tier2: [], tier3: [] };
     }
+    // No applicable work scheme — fall through to lower tiers below
   }
   // ── TIER 1: DVA RAP ─────────────────────────────────────────
   if (veteran === 'yes' && (dvaCard === 'gold' || dvaCard === 'white_inc')) {
@@ -1090,10 +1131,9 @@ function computeResults() {
   if (agedCareAge && agedCareResidency) {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
-    return { noSchemes: false, tier1, tier2, tier3: [] }; 
+    return { noSchemes: false, tier1, tier2, tier3: [] };
   }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
-  // Excluded if living in a residential aged care facility (inRACF)
   if (
     !myAgedCareRecommended &&
     !inRACF                &&
@@ -1110,14 +1150,12 @@ function computeResults() {
     }
   }
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
-  // All state-based schemes are excluded if living in a residential
-  // aged care facility (inRACF)
   // VIC — SWEP
   if (
     state === 'VIC'        &&
     isAuPR                 &&
     !myAgedCareRecommended &&
-    !inRACF                && // ← excluded for RACF residents
+    !inRACF                &&
     (age === '65plus' || lifelong === 'yes')
   ) {
     tier3.push(SCHEMES.SWEP);
@@ -1128,19 +1166,20 @@ function computeResults() {
     (isAuPR || isNZ || hasMedicare) &&
     lifelong === 'yes'              &&
     !myAgedCareRecommended          &&
-    !inRACF                         // ← excluded for RACF residents
+    !inRACF
   ) {
     tier3.push(SCHEMES.ENABLE_NSW);
   }
   // QLD — MASS
+  // Excluded if the user ONLY needs bowel irrigation systems
   if (
     state === 'QLD'        &&
     isAuPR                 &&
     !myAgedCareRecommended &&
-    !inRACF                && // ← excluded for RACF residents
+    !inRACF                &&
     lifelong === 'yes'     &&
     hasAnyConcession       &&
-    tai !== 'yes'             // ← excluded for TAI-only users
+    !onlyBowelIrrigation      // ← exclude if only bowel irrigation selected
   ) {
     tier3.push(SCHEMES.MASS);
   }
@@ -1150,7 +1189,7 @@ function computeResults() {
     isAuPR                 &&
     (hasPCC || hasHCC)     &&
     !myAgedCareRecommended &&
-    !inRACF                && // ← excluded for RACF residents
+    !inRACF                &&
     lifelong === 'yes'
   ) {
     tier3.push(SCHEMES.ACTES);
@@ -1163,11 +1202,11 @@ function computeResults() {
     lifelong === 'yes'                                         &&
     (hasPCC || hasHCC)                                         &&
     !myAgedCareRecommended                                     &&
-    !inRACF                                                    // ← excluded for RACF residents
+    !inRACF
   ) {
     tier3.push(SCHEMES.CPSS);
   }
-  // WA — CoSA (only if CPSS not already recommended)
+  // WA — CoSA
   if (
     state === 'WA'           &&
     isAuPR                   &&
@@ -1177,7 +1216,7 @@ function computeResults() {
     isCosaAge                &&
     !(hasPCC || hasHCC)      &&
     !myAgedCareRecommended   &&
-    !inRACF                  // ← excluded for RACF residents
+    !inRACF
   ) {
     tier3.push(SCHEMES.COSA);
   }
@@ -1186,7 +1225,7 @@ function computeResults() {
     state === 'NT'     &&
     isAuPR             &&
     lifelong === 'yes' &&
-    !inRACF            && // ← excluded for RACF residents
+    !inRACF            &&
     (
       age === 'under3' ||
       age === '3to4'   ||
@@ -1205,10 +1244,12 @@ function computeResults() {
     isAuPR                 &&
     (hasPCC || hasHCC)     &&
     !myAgedCareRecommended &&
-    !inRACF                // ← excluded for RACF residents
+    !inRACF
   ) {
     tier3.push(SCHEMES.TASEQUIP);
   }
+  // ── Also include nil-scheme notices in tier1 if applicable ──
+  // (already pushed above for ACT MVA / work nil schemes)
   // ── EARLY EXIT: No schemes at all ────────────────────────────
   if (tier1.length === 0 && tier2.length === 0 && tier3.length === 0) {
     return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
@@ -1218,9 +1259,10 @@ function computeResults() {
 // ─── Results Rendering ────────────────────────────────────────────────────────
 function showResults() {
   const result = computeResults();
-  document.getElementById('questionCard').style.display      = 'none';
+  document.getElementById('landingCard').style.display      = 'none';
+  document.getElementById('questionCard').style.display     = 'none';
   document.getElementById('progressContainer').style.display = 'none';
-  document.getElementById('resultsCard').style.display       = 'block';
+  document.getElementById('resultsCard').style.display      = 'block';
   const content = document.getElementById('resultsContent');
   const intro   = document.getElementById('resultsIntro');
   content.innerHTML = '';
@@ -1228,7 +1270,8 @@ function showResults() {
     intro.textContent = 'Based on your answers, we were unable to identify a suitable continence funding scheme for you at this time.';
     content.innerHTML = `
       <div class="no-schemes-box">
-        <span class="no-schemes-icon">&#9888;</span>
+        <span class="no-schemes-icon">
+        &#9888;</span>
         <p class="no-schemes-text">
           We recommend speaking to your healthcare professional for further guidance.
           There may be non-government options or other supports available to you
@@ -1294,7 +1337,7 @@ function showResults() {
   if (columns.length === 1) {
     content.style.gridTemplateColumns = '1fr';
   } else {
-    content.style.gridTemplateColumns = '';  // restore CSS default
+    content.style.gridTemplateColumns = '';
   }
   scrollToTop();
 }
@@ -1340,14 +1383,48 @@ function buildSchemeCard(scheme) {
     `;
   }
   body.innerHTML = bodyHTML;
-  // ── Toggle open/close this card only ───────────────────────
-  // Removed close-others logic to allow multiple cards open at once
   header.addEventListener('click', () => {
     card.classList.toggle('open');
   });
   card.appendChild(header);
   card.appendChild(body);
   return card;
+}
+// ─── Landing Page Init ────────────────────────────────────────────────────────
+function initLandingPage() {
+  const landingCard = document.getElementById('landingCard');
+  landingCard.innerHTML = `
+    <div class="landing-content">
+      <div class="landing-icon">&#128203;</div>
+      <h1 class="landing-title">Continence Funding Wizard</h1>
+      <p class="landing-intro">
+        Welcome! This tool is designed to help people living with bladder or bowel problems
+        find the most suitable <strong>government funding schemes</strong> for continence
+        support products in Australia.
+      </p>
+      <p class="landing-body">
+        Whether you use catheters, pads, bowel irrigation systems, or other continence
+        aids, there may be government funding available to help cover the cost — through
+        national schemes, state-based programs, or injury and veteran schemes.
+      </p>
+      <p class="landing-body">
+        This wizard will ask you a short series of questions about your age, location,
+        residency status, and circumstances to identify the schemes you may be eligible for.
+      </p>
+      <div class="landing-note">
+        <span>&#9432;</span>
+        <span>
+          This tool provides general guidance only and does not constitute financial or
+          medical advice. Eligibility is determined by each scheme and may change over time.
+          We recommend speaking to your healthcare professional or contacting the relevant
+          scheme directly to confirm your eligibility.
+        </span>
+      </div>
+      <button class="start-btn" onclick="startWizard()">
+        Get Started &#8594;
+      </button>
+    </div>
+  `;
 }
 // ─── Disclaimer close ─────────────────────────────────────────────────────────
 document.getElementById('disclaimerClose').addEventListener('click', () => {
@@ -1362,4 +1439,5 @@ document.getElementById('disclaimerClose').addEventListener('click', () => {
   setTimeout(() => { banner.style.display = 'none'; }, 320);
 });
 // ─── Initialise ───────────────────────────────────────────────────────────────
-renderQuestion('Q1');
+initLandingPage();
+showLandingPage();
