@@ -675,7 +675,7 @@ const QUESTIONS = [
   {
     id: 'Q13',
     text: 'Do you have a permanent disability that causes your incontinence?',
-    hint: 'Disability defined as any intellectual, cognitive, neurological, sensory, or physical impairment',
+    hint: 'Disability defined as any intellectual, cognitive, neurological, sensory, or physical impairment, leading to requiring significant support for daily functioning',
     type: 'single',
     options: [
       { value: 'yes', label: 'Yes' },
@@ -685,12 +685,13 @@ const QUESTIONS = [
   },
   {
     id: 'Q14',
-    text: 'Have you been formally assessed and deemed INELIGIBLE for the National Disability Insurance Scheme (NDIS)?',
-    hint: 'Select "No" if you have not yet applied, are currently applying, or are already an NDIS participant.',
+    text: 'Which of the following best describe your circumstance?',
+    hint: '',
     type: 'single',
     options: [
-      { value: 'no',  label: 'No — I have not been assessed, or I am an NDIS participant' },
-      { value: 'yes', label: 'Yes — I have been deemed ineligible for the NDIS' }
+      { value: 'new-NDIS',  label: 'I have not been assessed whether I am eligible for NDIS' },
+      { value: 'NDIS',  label: 'I am an NDIS participant' },
+      { value: 'non-NDIS', label: 'I have been formally assessed and deemed ineligible for the NDIS' }
     ],
     show: (a) => a.Q13 === 'yes'
   },
@@ -1403,9 +1404,8 @@ function initLandingPage() {
         support products in Australia.
       </p>
       <p class="landing-body">
-        Whether you use catheters, pads, bowel irrigation systems, or other continence
-        aids, there may be government funding available to help cover the cost — through
-        national schemes, state-based programs, or injury and veteran schemes.
+        Whether you use catheters, bowel irrigation systems, pads, or other continence
+        aids, there may be government funding available to help cover the cost.
       </p>
       <p class="landing-body">
         This wizard will ask you a short series of questions about your age, location,
