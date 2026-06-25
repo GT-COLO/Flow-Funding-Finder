@@ -1213,7 +1213,7 @@ function computeResults() {
     isAuPR                   &&
     disability === 'yes'     &&
     ndisStatus === 'non-NDIS' &&
-    isCosaAge                &&
+    isCosaAge
   ) {
     tier3.push(SCHEMES.COSA);
   }
