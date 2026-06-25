@@ -1213,7 +1213,9 @@ function computeResults() {
     isAuPR                   &&
     disability === 'yes'     &&
     ndisStatus === 'non-NDIS' &&
-    isCosaAge
+    isCosaAge                 &&
+    !myAgedCareRecommended    &&
+    !inRACF
   ) {
     tier3.push(SCHEMES.COSA);
   }
