@@ -1213,11 +1213,7 @@ function computeResults() {
     isAuPR                   &&
     disability === 'yes'     &&
     ndisStatus === 'non-NDIS' &&
-    lifelong === 'yes'       &&
     isCosaAge                &&
-    !(hasPCC || hasHCC)      &&
-    !myAgedCareRecommended   &&
-    !inRACF
   ) {
     tier3.push(SCHEMES.COSA);
   }
