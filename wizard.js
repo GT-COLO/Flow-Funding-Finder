@@ -1127,20 +1127,25 @@ function computeResults() {
     }
     return { noSchemes: false, tier1, tier2, tier3: [] };
   }
-  // ── TIER 2: MY AGED CARE ─────────────────────────────────────
-  let myAgedCareRecommended = false;
+// ── TIER 2: MY AGED CARE ─────────────────────────────────────
   if (agedCareAge && agedCareResidency) {
     tier2.push(SCHEMES.MY_AGED_CARE);
     myAgedCareRecommended = true;
-    return { noSchemes: false, tier1, tier2, tier3: [] };
+    // Do NOT return early — continue to check CAPS eligibility below
   }
   // ── TIER 2: CAPS ─────────────────────────────────────────────
+  // Eligible if:
+  //   - Australian PR
+  //   - Not in RACF
+  //   - Lifelong incontinence
+  //   - Aged 3+ (not under3 or 3to4... wait — original excluded under3 and 3to4)
+  //   - Neurological cause, OR non-neurological cause + PCC
+  //   - Note: myAgedCareRecommended users CAN also receive CAPS
   if (
-    !myAgedCareRecommended &&
-    !inRACF                &&
-    isAuPR                 &&
-    lifelong === 'yes'     &&
-    age !== 'under3'       &&
+    isAuPR             &&
+    !inRACF            &&
+    lifelong === 'yes' &&
+    age !== 'under3'   &&
     age !== '3to4'
   ) {
     const capsQualifies =
@@ -1149,6 +1154,13 @@ function computeResults() {
     if (capsQualifies) {
       tier2.push(SCHEMES.CAPS);
     }
+  }
+  // ── Early return for My Aged Care path (with or without CAPS) ─
+  if (myAgedCareRecommended) {
+    if (tier2.length === 0 && tier1.length === 0) {
+      return { noSchemes: true, tier1: [], tier2: [], tier3: [] };
+    }
+    return { noSchemes: false, tier1, tier2, tier3: [] };
   }
   // ── TIER 3: STATE-BASED TOP-UP SCHEMES ───────────────────────
   // VIC — SWEP
