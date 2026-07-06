@@ -945,12 +945,12 @@ function goNext() {
   if (q.type === 'multi'  && (!answers[q.id] || answers[q.id].length === 0)) return;
   history.push(currentQId);
   const nextId = getNextQuestionId(currentQId);
-  invalidateStaleAnswers();
   if (nextId) {
+    invalidateStaleAnswers();   // ← only invalidate when moving to another question
     renderQuestion(nextId);
     scrollToTop();
   } else {
-    showResults();
+    showResults();              // ← go straight to results, answers intact
   }
 }
 function goBack() {
