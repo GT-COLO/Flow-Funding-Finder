@@ -346,7 +346,7 @@ const SCHEMES = {
     subsidy: {
       amount: null,
       period: null,
-      notes: 'Funding is needs-based and means-tested. Support at Home provides up to $10,000–$78,000 per year depending on your assessed needs, including up to $500–$15,000 per year for assistive technology. CHSP provides up to $1,000 per year for equipment and products.'
+      notes: 'Funding is needs-based and means-tested. Support at Home provides up to $11,000–$80,000 per year depending on your assessed needs. CHSP provides up to $1,000 per year for equipment and products.'
     },
     note: null,
     link: 'https://www.myagedcare.gov.au'
@@ -365,7 +365,7 @@ const SCHEMES = {
       'A medical practitioner or continence nurse is required to complete part of the registration form to register.'
     ],
     subsidy: {
-      amount: '$717.10',
+      amount: '$739.40',
       period: 'per year',
       notes: 'Amount is indexed annually. Paid as a single direct payment to the participant.'
     },
