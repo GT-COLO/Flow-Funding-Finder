@@ -1039,6 +1039,7 @@ function computeResults() {
   const tier1 = [];
   const tier2 = [];
   const tier3 = [];
+  let myAgedCareRecommended = false; 
   // ── EARLY EXIT CHECK ────────────────────────────────────────
   const notAgedCareAge =
     age === 'under3' ||
